@@ -20,26 +20,21 @@ export type MarriageBiodata = {
   education: BiodataSection;
   family: BiodataSection;
   horoscope: BiodataSection;
-  lifestyle: BiodataSection;
   contact: BiodataSection;
-  expectations: {
-    title: LocalizedText;
-    text: LocalizedText;
-  };
 };
 
 export const biodata: MarriageBiodata = {
   name: {
-    en: "Aarav Deshmukh",
-    mr: "आरव देशमुख",
+    en: "Suraj Maruti Gavali",
+    mr: "सुरज मारुती गावळी",
   },
   headline: {
     en: "Software Engineer · Pune",
-    mr: "सॉफ्टवेअर अभियंता · पुणे",
+    mr: "सॉफ्टवेअर इंजिनिअर · पुणे",
   },
   introduction: {
-    en: "Thoughtful, family-oriented and grounded. I value honest communication, curiosity and building a warm life together.",
-    mr: "समंजस, कुटुंबवत्सल आणि साध्या विचारांचा. प्रामाणिक संवाद, जिज्ञासा आणि एकत्र सुंदर आयुष्य घडवण्यावर माझा विश्वास आहे.",
+    en: "B.Tech graduate in Computer Science and Engineering, currently working as a Software Engineer in Pune.",
+    mr: "बी.टेक. कम्प्युटर सायन्स अँड इंजिनिअरिंग पदवीधर. सध्या पुणे येथे सॉफ्टवेअर इंजिनिअर म्हणून कार्यरत.",
   },
   personal: {
     title: {
@@ -49,60 +44,81 @@ export const biodata: MarriageBiodata = {
     details: [
       {
         label: { en: "Date of birth", mr: "जन्मतारीख" },
-        value: { en: "15 August 1995", mr: "१५ ऑगस्ट १९९५" },
+        value: { en: "16 January 2001", mr: "१६ जानेवारी २००१" },
       },
       {
         label: { en: "Birth time", mr: "जन्मवेळ" },
-        value: { en: "10:30 AM", mr: "सकाळी १०:३०" },
+        value: { en: "8:40", mr: "८ वाजून ४० मिनिटे" },
       },
       {
         label: { en: "Birth place", mr: "जन्मस्थळ" },
-        value: { en: "Pune, Maharashtra", mr: "पुणे, महाराष्ट्र" },
+        value: { en: "Kolhapur", mr: "कोल्हापूर" },
       },
       {
         label: { en: "Height", mr: "उंची" },
-        value: { en: "5 ft 10 in", mr: "५ फूट १० इंच" },
+        value: { en: "5 ft 5 in", mr: "५ फूट ५ इंच" },
+      },
+      {
+        label: { en: "Complexion", mr: "वर्ण" },
+        value: { en: "Fair", mr: "गोरा" },
       },
       {
         label: { en: "Blood group", mr: "रक्तगट" },
-        value: { en: "B positive", mr: "बी पॉझिटिव्ह" },
-      },
-      {
-        label: { en: "Marital status", mr: "वैवाहिक स्थिती" },
-        value: { en: "Never married", mr: "अविवाहित" },
+        value: { en: "O negative", mr: "O निगेटिव्ह" },
       },
     ],
   },
   education: {
     title: {
       en: "Education & career",
-      mr: "शिक्षण व करिअर",
+      mr: "शिक्षण व नोकरी",
     },
     details: [
       {
         label: { en: "Education", mr: "शिक्षण" },
         value: {
-          en: "B.E. Computer Engineering",
-          mr: "बी.ई. संगणक अभियांत्रिकी",
+          en: "B.Tech, Computer Science and Engineering",
+          mr: "बी.टेक. कम्प्युटर सायन्स अँड इंजिनिअरिंग",
         },
       },
       {
-        label: { en: "Profession", mr: "व्यवसाय" },
+        label: { en: "Profession", mr: "नोकरी" },
         value: {
-          en: "Senior Software Engineer",
-          mr: "वरिष्ठ सॉफ्टवेअर अभियंता",
+          en: "Software Engineer",
+          mr: "सॉफ्टवेअर इंजिनिअर",
         },
       },
       {
-        label: { en: "Company", mr: "कंपनी" },
-        value: {
-          en: "Aster Digital, Pune",
-          mr: "ॲस्टर डिजिटल, पुणे",
-        },
+        label: { en: "Work location", mr: "नोकरीचे ठिकाण" },
+        value: { en: "Pune", mr: "पुणे" },
+      },
+    ],
+  },
+  horoscope: {
+    title: {
+      en: "Traditional details",
+      mr: "पारंपरिक माहिती",
+    },
+    details: [
+      {
+        label: { en: "Religion", mr: "धर्म" },
+        value: { en: "Hindu", mr: "हिंदू" },
       },
       {
-        label: { en: "Annual income", mr: "वार्षिक उत्पन्न" },
-        value: { en: "₹18 lakh", mr: "₹१८ लाख" },
+        label: { en: "Community", mr: "जात" },
+        value: { en: "Chambhar", mr: "चांभार" },
+      },
+      {
+        label: { en: "Rashi", mr: "रास" },
+        value: { en: "Libra (Tula)", mr: "तूळ" },
+      },
+      {
+        label: { en: "Rashi name", mr: "नावरस नाव" },
+        value: { en: "Omkar", mr: "ओंकार" },
+      },
+      {
+        label: { en: "Family deity", mr: "कुलदैवत" },
+        value: { en: "Narasimha", mr: "नरसिंह" },
       },
     ],
   },
@@ -115,94 +131,43 @@ export const biodata: MarriageBiodata = {
       {
         label: { en: "Father", mr: "वडील" },
         value: {
-          en: "Mahesh Deshmukh · Business",
-          mr: "महेश देशमुख · व्यवसाय",
+          en: "Maruti Shamrao Gavali",
+          mr: "श्री. मारुती शामराव गावळी",
         },
       },
       {
         label: { en: "Mother", mr: "आई" },
         value: {
-          en: "Sunita Deshmukh · Teacher",
-          mr: "सुनीता देशमुख · शिक्षिका",
+          en: "Anandi Maruti Gavali",
+          mr: "सौ. आनंदी मारुती गावळी",
         },
       },
       {
-        label: { en: "Siblings", mr: "भावंडे" },
+        label: { en: "Brother", mr: "भाऊ" },
         value: {
-          en: "One younger sister, married",
-          mr: "एक धाकटी बहीण, विवाहित",
+          en: "Vijay Maruti Gavali",
+          mr: "कु. विजय मारुती गावळी",
         },
       },
       {
-        label: { en: "Native place", mr: "मूळ गाव" },
+        label: { en: "Maternal uncle", mr: "मामा" },
         value: {
-          en: "Satara, Maharashtra",
-          mr: "सातारा, महाराष्ट्र",
+          en: "Late Shankar Maruti Jadhav",
+          mr: "कै. शंकर मारुती जाधव",
         },
       },
       {
-        label: { en: "Family type", mr: "कुटुंब प्रकार" },
+        label: { en: "Uncle", mr: "चुलते" },
         value: {
-          en: "Nuclear · Cultured",
-          mr: "विभक्त · सुसंस्कृत",
-        },
-      },
-    ],
-  },
-  horoscope: {
-    title: {
-      en: "Horoscope",
-      mr: "कुंडलीविषयक माहिती",
-    },
-    details: [
-      {
-        label: { en: "Religion", mr: "धर्म" },
-        value: { en: "Hindu", mr: "हिंदू" },
-      },
-      {
-        label: { en: "Community", mr: "समाज" },
-        value: { en: "Maratha", mr: "मराठा" },
-      },
-      {
-        label: { en: "Gotra", mr: "गोत्र" },
-        value: { en: "Kashyap", mr: "कश्यप" },
-      },
-      {
-        label: { en: "Rashi", mr: "रास" },
-        value: { en: "Libra (Tula)", mr: "तूळ" },
-      },
-      {
-        label: { en: "Nakshatra", mr: "नक्षत्र" },
-        value: { en: "Swati", mr: "स्वाती" },
-      },
-      {
-        label: { en: "Gan / Nadi", mr: "गण / नाडी" },
-        value: { en: "Dev / Antya", mr: "देव / अंत्य" },
-      },
-    ],
-  },
-  lifestyle: {
-    title: {
-      en: "Lifestyle",
-      mr: "आवडी व जीवनशैली",
-    },
-    details: [
-      {
-        label: { en: "Diet", mr: "आहार" },
-        value: { en: "Vegetarian", mr: "शाकाहारी" },
-      },
-      {
-        label: { en: "Languages", mr: "भाषा" },
-        value: {
-          en: "Marathi, Hindi, English",
-          mr: "मराठी, हिंदी, इंग्रजी",
+          en: "Balkrishna Shamrao Gavali",
+          mr: "श्री. बाळकृष्ण शामराव गावळी",
         },
       },
       {
-        label: { en: "Interests", mr: "छंद" },
+        label: { en: "Uncle", mr: "काका" },
         value: {
-          en: "Trekking, reading, music",
-          mr: "भटकंती, वाचन, संगीत",
+          en: "Kerba Dhondiram Chougule",
+          mr: "श्री. केरबा धोंडीराम चौगुले",
         },
       },
     ],
@@ -214,34 +179,32 @@ export const biodata: MarriageBiodata = {
     },
     details: [
       {
-        label: { en: "Phone", mr: "मोबाईल" },
-        value: { en: "+91 98765 43210", mr: "+९१ ९८७६५ ४३२१०" },
-      },
-      {
-        label: { en: "Email", mr: "ई-मेल" },
+        label: { en: "Address", mr: "पत्ता" },
         value: {
-          en: "aarav.sample@example.com",
-          mr: "aarav.sample@example.com",
+          en: "Sant Rohidas Society, Subhash Nagar, Kolhapur",
+          mr: "संत रोहिदास सोसायटी, सुभाषनगर, कोल्हापूर",
         },
       },
       {
-        label: { en: "Address", mr: "पत्ता" },
+        label: { en: "Mobile 1", mr: "मोबाईल १" },
+        value: { en: "8408012121", mr: "८४०८०१२१२१" },
+      },
+      {
+        label: { en: "Mobile 2", mr: "मोबाईल २" },
+        value: { en: "9730927098", mr: "९७३०९२७०९८" },
+      },
+      {
+        label: { en: "Mobile 3", mr: "मोबाईल ३" },
+        value: { en: "7058525310", mr: "७०५८५२५३१०" },
+      },
+      {
+        label: { en: "Relations", mr: "इतर पाहुणे" },
         value: {
-          en: "Kothrud, Pune, Maharashtra",
-          mr: "कोथरूड, पुणे, महाराष्ट्र",
+          en: "Gavali, Chougule, Jadhav, Nagare, Chavan, Kamble, Chougule, Bamane, Patil, Lohar, Daiphode",
+          mr: "गावळी, चौगुले, जाधव, नागरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डईफोडे",
         },
       },
     ],
-  },
-  expectations: {
-    title: {
-      en: "Partner preference",
-      mr: "जोडीदाराविषयी अपेक्षा",
-    },
-    text: {
-      en: "Seeking a kind, well-educated and independent partner who values family, mutual respect and growing together.",
-      mr: "कुटुंब, परस्पर आदर आणि एकत्र प्रगतीला महत्त्व देणारी प्रेमळ, सुशिक्षित व स्वावलंबी जोडीदार अपेक्षित.",
-    },
   },
 };
 
@@ -259,9 +222,8 @@ export const uiCopy = {
     generatingPdf: "Preparing PDF…",
     generatingPng: "Preparing PNG…",
     downloadError: "The download could not be created. Please try again.",
-    sampleNotice: "Fictional sample profile · Replace with your details",
-    about: "About me",
-    attribution: "Designed with reference to Freepik",
+    footerNotice: "Suraj Maruti Gavali · Marriage biodata",
+    about: "Profile",
   },
   mr: {
     pageEyebrow: "विवाह परिचयपत्र",
@@ -276,8 +238,7 @@ export const uiCopy = {
     generatingPdf: "PDF तयार होत आहे…",
     generatingPng: "PNG तयार होत आहे…",
     downloadError: "डाउनलोड तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
-    sampleNotice: "काल्पनिक नमुना · तुमची माहिती येथे भरा",
-    about: "माझ्याविषयी",
-    attribution: "Freepik च्या संदर्भाने डिझाइन",
+    footerNotice: "सुरज मारुती गावळी · विवाह परिचयपत्र",
+    about: "परिचय",
   },
 } satisfies Record<Locale, Record<string, string>>;

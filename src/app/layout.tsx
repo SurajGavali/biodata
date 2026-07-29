@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       ? `http://${deploymentUrl}`
       : `https://${deploymentUrl}`,
   ),
-  title: "Aarav Deshmukh | Marriage Biodata",
+  title: "Suraj Gavali | Marriage Biodata",
   description:
     "A bilingual English and Marathi marriage biodata with PDF and PNG downloads.",
   applicationName: "Marriage Biodata",
@@ -40,20 +40,20 @@ export const metadata: Metadata = {
       "A polished bilingual English and Marathi marriage biodata with PDF and PNG downloads.",
     images: [
       {
-        alt: "Aarav Deshmukh bilingual marriage biodata",
+        alt: "Suraj Gavali bilingual marriage biodata",
         height: 630,
         url: "/og.png",
         width: 1200,
       },
     ],
-    title: "Aarav Deshmukh | Marriage Biodata",
+    title: "Suraj Gavali | Marriage Biodata",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     description: "Bilingual marriage biodata in English and Marathi.",
     images: ["/og.png"],
-    title: "Aarav Deshmukh | Marriage Biodata",
+    title: "Suraj Gavali | Marriage Biodata",
   },
 };
 

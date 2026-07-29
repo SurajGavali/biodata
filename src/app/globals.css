@@ -334,15 +334,6 @@ a:focus-visible {
   min-width: 0;
 }
 
-.sampleNotice {
-  margin-bottom: 12px;
-  color: var(--peach-deep);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .identity h1 {
   display: flex;
   flex-direction: column;
@@ -512,7 +503,6 @@ a:focus-visible {
 }
 
 [lang="mr"] .headline,
-[lang="mr"] .sampleNotice,
 [lang="mr"] .sectionHeading h2 {
   letter-spacing: 0;
   text-transform: none;
@@ -554,11 +544,6 @@ a:focus-visible {
   width: 184px;
   height: 184px;
   border-width: 6px;
-}
-
-.exportSheet .sampleNotice {
-  margin-bottom: 8px;
-  font-size: 10px;
 }
 
 .exportSheet .identity h1 {

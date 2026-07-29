@@ -66,8 +66,8 @@ function BiodataSheet({
               src="/profile-placeholder.png"
               alt={
                 locale === "en"
-                  ? "Fictional sample portrait of Aarav Deshmukh"
-                  : "आरव देशमुख यांचे काल्पनिक नमुना छायाचित्र"
+                  ? "Temporary placeholder portrait for Suraj Gavali"
+                  : "सुरज गावळी यांच्यासाठी तात्पुरते छायाचित्र"
               }
               fill
               priority
@@ -78,7 +78,6 @@ function BiodataSheet({
         </div>
 
         <div className="identity">
-          <p className="sampleNotice">{copy.sampleNotice}</p>
           <h1>
             <span>{localized(biodata.name, locale).split(" ")[0]}</span>
             <strong>
@@ -101,32 +100,17 @@ function BiodataSheet({
           </section>
           <DetailSection section={biodata.personal} locale={locale} />
           <DetailSection section={biodata.education} locale={locale} />
-          <DetailSection section={biodata.family} locale={locale} />
         </div>
 
         <div className="column columnRight">
           <DetailSection section={biodata.horoscope} locale={locale} />
-          <DetailSection section={biodata.lifestyle} locale={locale} />
+          <DetailSection section={biodata.family} locale={locale} />
           <DetailSection section={biodata.contact} locale={locale} />
-          <section className="bioSection expectationSection">
-            <div className="sectionHeading">
-              <span className="headingMark" aria-hidden="true" />
-              <h2>{localized(biodata.expectations.title, locale)}</h2>
-            </div>
-            <p>{localized(biodata.expectations.text, locale)}</p>
-          </section>
         </div>
       </div>
 
       <footer className="sheetFooter">
-        <span>{copy.sampleNotice}</span>
-        <a
-          href="https://www.freepik.com"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {copy.attribution}
-        </a>
+        <span>{copy.footerNotice}</span>
       </footer>
     </article>
   );
@@ -200,7 +184,7 @@ export default function Home() {
 
     try {
       const imageData = await createExportImage();
-      const filename = `aarav-deshmukh-biodata-${locale}`;
+      const filename = `suraj-gavali-biodata-${locale}`;
 
       if (format === "png") {
         downloadDataUrl(imageData, `${filename}.png`);
@@ -214,9 +198,9 @@ export default function Home() {
         });
         pdf.addImage(imageData, "PNG", 0, 0, 210, 297, undefined, "FAST");
         pdf.setProperties({
-          author: "Aarav Deshmukh",
+          author: "Suraj Maruti Gavali",
           subject: "Marriage biodata",
-          title: `Aarav Deshmukh Biodata (${locale.toUpperCase()})`,
+          title: `Suraj Maruti Gavali Biodata (${locale.toUpperCase()})`,
         });
         pdf.save(`${filename}.pdf`);
       }
