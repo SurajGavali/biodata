@@ -1,0 +1,836 @@
+:root {
+  --ink: #073b43;
+  --ink-deep: #032f36;
+  --peach: #f4bd7e;
+  --peach-deep: #c17b43;
+  --paper: #fffefd;
+  --paper-muted: #f4f0ed;
+  --text: #333a3b;
+  --muted: #6f7677;
+  --line: #e8ddd4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--ink-deep);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--ink-deep);
+  font-family: "Darker Grotesque", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.pageShell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 54px 24px 80px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(33, 105, 112, 0.3), transparent 26rem),
+    linear-gradient(135deg, #032f36 0%, #063b43 58%, #042e34 100%);
+}
+
+.backgroundShape {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.backgroundShapeOne {
+  top: -180px;
+  right: -130px;
+  width: 520px;
+  height: 520px;
+  border: 1px solid rgba(244, 189, 126, 0.25);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 90px rgba(244, 189, 126, 0.025),
+    0 0 0 180px rgba(244, 189, 126, 0.018);
+}
+
+.backgroundShapeTwo {
+  bottom: -330px;
+  left: -220px;
+  width: 560px;
+  height: 560px;
+  transform: rotate(45deg);
+  border-radius: 76px;
+  background: rgba(244, 189, 126, 0.08);
+}
+
+.pageIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: end;
+  width: min(100%, 980px);
+  margin: 0 auto 32px;
+  color: #fff;
+}
+
+.pageIntro > div:first-child {
+  max-width: 620px;
+}
+
+.pageEyebrow {
+  margin-bottom: 10px;
+  color: var(--peach);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pageIntro h2 {
+  max-width: 580px;
+  color: #fff;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+}
+
+.pageIntro > div:first-child > p:last-child {
+  max-width: 590px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+  justify-items: end;
+}
+
+.languageControl {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.segmentedControl {
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.segmentedControl button {
+  min-width: 72px;
+  padding: 7px 13px;
+  border: 0;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.75);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.segmentedControl button:hover {
+  color: #fff;
+}
+
+.segmentedControl button:active {
+  transform: scale(0.97);
+}
+
+.segmentedControl button.active {
+  color: var(--ink-deep);
+  background: var(--peach);
+}
+
+.downloadButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.downloadButton {
+  min-width: 140px;
+  padding: 11px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.downloadButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.downloadButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.primaryButton {
+  color: var(--ink-deep);
+  background: var(--peach);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #ffc98e;
+  box-shadow: 0 11px 28px rgba(0, 0, 0, 0.23);
+}
+
+.secondaryButton {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.controlStatus {
+  min-height: 18px;
+  color: #ffd4d4;
+  font-size: 14px;
+}
+
+.sheetWrapper {
+  width: min(100%, 980px);
+  margin: 0 auto;
+}
+
+.biodataSheet {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 1220px;
+  padding: 54px 62px 30px;
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(248, 242, 237, 0.55), transparent 180px),
+    var(--paper);
+  border-radius: 3px;
+  box-shadow: 0 28px 75px rgba(0, 0, 0, 0.28);
+}
+
+.sheetAccent {
+  position: absolute;
+  pointer-events: none;
+}
+
+.sheetAccentTop {
+  top: -90px;
+  left: -70px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: var(--paper-muted);
+}
+
+.sheetAccentBottom {
+  right: -88px;
+  bottom: -88px;
+  width: 190px;
+  height: 190px;
+  transform: rotate(45deg);
+  background: var(--peach);
+}
+
+.profileHeader {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  min-height: 285px;
+  margin-bottom: 36px;
+}
+
+.portraitOrbits {
+  position: relative;
+  display: grid;
+  width: 270px;
+  height: 270px;
+  place-items: center;
+}
+
+.portraitFrame {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  width: 228px;
+  height: 228px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 16px 40px rgba(7, 59, 67, 0.18);
+}
+
+.portraitImage {
+  object-fit: cover;
+}
+
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbitOne {
+  inset: 4px;
+  border: 3px solid transparent;
+  border-top-color: var(--peach);
+  border-right-color: var(--peach);
+  transform: rotate(-25deg);
+}
+
+.orbitTwo {
+  inset: -8px 25px 12px -4px;
+  border: 4px solid transparent;
+  border-bottom-color: var(--ink);
+  border-left-color: var(--ink);
+  transform: rotate(22deg);
+}
+
+.identity {
+  min-width: 0;
+}
+
+.sampleNotice {
+  margin-bottom: 12px;
+  color: var(--peach-deep);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.identity h1 {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  font-size: clamp(54px, 7vw, 78px);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+.identity h1 strong {
+  margin-top: 19px;
+  color: var(--peach);
+  font-weight: 600;
+}
+
+.headline {
+  margin-top: 29px;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.titleRule {
+  display: block;
+  width: 44px;
+  height: 4px;
+  margin-top: 18px;
+  background: var(--peach);
+}
+
+.contentGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 60px;
+}
+
+.contentGrid::after {
+  position: absolute;
+  top: 4px;
+  bottom: 2px;
+  left: calc(56% + 0px);
+  width: 2px;
+  content: "";
+  background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.25));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+  min-width: 0;
+}
+
+.bioSection {
+  position: relative;
+}
+
+.sectionHeading {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.headingMark {
+  width: 31px;
+  height: 10px;
+  margin-left: -62px;
+  background: var(--peach);
+}
+
+.columnRight .headingMark {
+  width: 30px;
+  margin-left: -31px;
+}
+
+.sectionHeading h2 {
+  color: var(--ink);
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.aboutSection p,
+.expectationSection p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.48;
+}
+
+.detailList {
+  display: grid;
+  gap: 9px;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: minmax(94px, 0.38fr) minmax(0, 0.62fr);
+  gap: 13px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.2;
+}
+
+.detailRow:last-child {
+  border-bottom: 0;
+}
+
+.detailRow dt {
+  color: var(--peach-deep);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.detailRow dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sheetFooter {
+  position: absolute;
+  right: 62px;
+  bottom: 17px;
+  left: 62px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 9px;
+  color: #929797;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.sheetFooter a {
+  color: inherit;
+}
+
+.sheetFooter a:hover {
+  color: var(--ink);
+}
+
+[lang="mr"] {
+  font-family: "Noto Sans Devanagari", sans-serif;
+}
+
+[lang="mr"] .identity h1 {
+  font-size: 58px;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  text-transform: none;
+}
+
+[lang="mr"] .identity h1 strong {
+  margin-top: 10px;
+}
+
+[lang="mr"] .headline,
+[lang="mr"] .sampleNotice,
+[lang="mr"] .sectionHeading h2 {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.exportStage {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  z-index: -100;
+  width: 794px;
+  height: 1123px;
+  pointer-events: none;
+  opacity: 0.01;
+}
+
+.exportSheet {
+  width: 794px;
+  min-height: 1123px;
+  max-height: 1123px;
+  padding: 34px 42px 24px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.exportSheet .profileHeader {
+  grid-template-columns: 225px minmax(0, 1fr);
+  gap: 44px;
+  min-height: 220px;
+  margin-bottom: 24px;
+}
+
+.exportSheet .portraitOrbits {
+  width: 220px;
+  height: 220px;
+}
+
+.exportSheet .portraitFrame {
+  width: 184px;
+  height: 184px;
+  border-width: 6px;
+}
+
+.exportSheet .sampleNotice {
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+
+.exportSheet .identity h1 {
+  font-size: 54px;
+}
+
+.exportSheet .identity h1 strong {
+  margin-top: 14px;
+}
+
+.exportSheet .headline {
+  margin-top: 21px;
+  font-size: 13px;
+}
+
+.exportSheet .titleRule {
+  height: 3px;
+  margin-top: 13px;
+}
+
+.exportSheet .contentGrid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 47px;
+}
+
+.exportSheet .contentGrid::after {
+  left: 55%;
+}
+
+.exportSheet .column {
+  gap: 18px;
+}
+
+.exportSheet .sectionHeading {
+  gap: 9px;
+  margin-bottom: 7px;
+}
+
+.exportSheet .headingMark {
+  width: 25px;
+  height: 7px;
+  margin-left: -42px;
+}
+
+.exportSheet .columnRight .headingMark {
+  width: 24px;
+  margin-left: -25px;
+}
+
+.exportSheet .sectionHeading h2 {
+  font-size: 16px;
+}
+
+.exportSheet .aboutSection p,
+.exportSheet .expectationSection p {
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.exportSheet .detailList {
+  gap: 4px;
+}
+
+.exportSheet .detailRow {
+  grid-template-columns: minmax(79px, 0.38fr) minmax(0, 0.62fr);
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.exportSheet .detailRow dt {
+  font-size: 10.5px;
+}
+
+.exportSheet .detailRow dd {
+  font-size: 11px;
+}
+
+.exportSheet .sheetFooter {
+  right: 42px;
+  bottom: 10px;
+  left: 42px;
+  padding-top: 6px;
+  font-size: 8px;
+}
+
+.exportSheet[lang="mr"] .identity h1 {
+  font-size: 43px;
+}
+
+.exportSheet[lang="mr"] .sectionHeading h2 {
+  font-size: 14px;
+}
+
+.exportSheet[lang="mr"] .detailRow dt,
+.exportSheet[lang="mr"] .detailRow dd {
+  font-size: 10px;
+}
+
+@media (max-width: 900px) {
+  .pageIntro {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .controls {
+    justify-items: start;
+  }
+
+  .biodataSheet {
+    padding-inline: 42px;
+  }
+
+  .profileHeader {
+    grid-template-columns: 245px minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .portraitOrbits {
+    width: 238px;
+    height: 238px;
+  }
+
+  .portraitFrame {
+    width: 205px;
+    height: 205px;
+  }
+
+  .contentGrid {
+    gap: 42px;
+  }
+
+  .contentGrid::after {
+    left: 56%;
+  }
+
+  .headingMark {
+    margin-left: -42px;
+  }
+
+  .sheetFooter {
+    right: 42px;
+    left: 42px;
+  }
+}
+
+@media (max-width: 700px) {
+  .pageShell {
+    padding: 32px 14px 48px;
+  }
+
+  .pageIntro h2 {
+    font-size: 40px;
+  }
+
+  .pageIntro > div:first-child > p:last-child {
+    font-size: 16px;
+  }
+
+  .controls,
+  .languageControl {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .languageControl {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .downloadButtons {
+    width: 100%;
+  }
+
+  .downloadButton {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .biodataSheet {
+    min-height: 0;
+    padding: 34px 26px 76px;
+  }
+
+  .profileHeader {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+    margin-bottom: 38px;
+    text-align: center;
+  }
+
+  .portraitOrbits {
+    width: 210px;
+    height: 210px;
+  }
+
+  .portraitFrame {
+    width: 178px;
+    height: 178px;
+  }
+
+  .identity h1,
+  [lang="mr"] .identity h1 {
+    align-items: center;
+    font-size: 46px;
+    line-height: 0.86;
+  }
+
+  .headline {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  .titleRule {
+    margin-inline: auto;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .contentGrid::after {
+    display: none;
+  }
+
+  .column {
+    gap: 28px;
+  }
+
+  .headingMark,
+  .columnRight .headingMark {
+    width: 20px;
+    margin-left: -26px;
+  }
+
+  .sectionHeading h2 {
+    font-size: 20px;
+  }
+
+  .detailRow {
+    grid-template-columns: minmax(96px, 0.4fr) minmax(0, 0.6fr);
+  }
+
+  .sheetFooter {
+    right: 26px;
+    bottom: 15px;
+    left: 26px;
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+@media (max-width: 420px) {
+  .downloadButtons {
+    flex-direction: column;
+  }
+
+  .detailRow {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
