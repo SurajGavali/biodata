@@ -63,11 +63,11 @@ function BiodataSheet({
           <span className="orbit orbitTwo" aria-hidden="true" />
           <div className="portraitFrame">
             <Image
-              src="/profile-placeholder.png"
+              src="/profile-photo.png"
               alt={
                 locale === "en"
-                  ? "Temporary placeholder portrait for Suraj Gavali"
-                  : "सुरज गावळी यांच्यासाठी तात्पुरते छायाचित्र"
+                  ? "Portrait of Suraj Gavali"
+                  : "सुरज गावळी यांचे छायाचित्र"
               }
               fill
               priority

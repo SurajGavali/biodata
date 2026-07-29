@@ -6,7 +6,7 @@ active language can be downloaded as a high-resolution PNG or an A4 PDF.
 ## Update the biodata
 
 - Edit Suraj Gavali's bilingual profile details in `src/app/biodata.ts`.
-- Replace `public/profile-placeholder.png` with your own square portrait. Keep
+- Replace `public/profile-photo.png` with your preferred portrait. Keep
   the same filename to update the website and both download formats
   automatically.
 - Update the page title and description in `src/app/layout.tsx` if the profile
