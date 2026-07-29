@@ -347,7 +347,7 @@ a:focus-visible {
 
 .identity h1 strong {
   margin-top: 19px;
-  color: var(--peach);
+  color: inherit;
   font-weight: 600;
 }
 
