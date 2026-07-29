@@ -210,15 +210,13 @@ export const biodata: MarriageBiodata = {
 
 export const uiCopy = {
   en: {
-    pageEyebrow: "Marriage biodata",
-    pageTitle: "A meaningful introduction, beautifully presented.",
-    pageDescription:
-      "Switch languages, then download the current version as a polished PDF or high-resolution image.",
     language: "Language",
     english: "English",
     marathi: "मराठी",
-    downloadPdf: "Download PDF",
-    downloadPng: "Download PNG",
+    download: "Download",
+    chooseFormat: "Choose download format",
+    imageFormat: "High-resolution image",
+    documentFormat: "A4 document",
     generatingPdf: "Preparing PDF…",
     generatingPng: "Preparing PNG…",
     downloadError: "The download could not be created. Please try again.",
@@ -226,15 +224,13 @@ export const uiCopy = {
     about: "Profile",
   },
   mr: {
-    pageEyebrow: "विवाह परिचयपत्र",
-    pageTitle: "सुंदर मांडणीत अर्थपूर्ण परिचय.",
-    pageDescription:
-      "भाषा निवडा आणि सध्याची आवृत्ती आकर्षक PDF किंवा उच्च दर्जाच्या प्रतिमेत डाउनलोड करा.",
     language: "भाषा",
     english: "English",
     marathi: "मराठी",
-    downloadPdf: "PDF डाउनलोड करा",
-    downloadPng: "PNG डाउनलोड करा",
+    download: "डाउनलोड",
+    chooseFormat: "डाउनलोड स्वरूप निवडा",
+    imageFormat: "उच्च दर्जाची प्रतिमा",
+    documentFormat: "A4 दस्तऐवज",
     generatingPdf: "PDF तयार होत आहे…",
     generatingPng: "PNG तयार होत आहे…",
     downloadError: "डाउनलोड तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.",

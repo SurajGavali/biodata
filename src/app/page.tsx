@@ -149,12 +149,43 @@ export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
   const [exportStatus, setExportStatus] = useState<ExportStatus>(null);
   const [exportError, setExportError] = useState(false);
+  const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);
+  const downloadMenuRef = useRef<HTMLDivElement>(null);
   const copy = uiCopy[locale];
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    if (!downloadMenuOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        downloadMenuRef.current &&
+        !downloadMenuRef.current.contains(event.target as Node)
+      ) {
+        setDownloadMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setDownloadMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [downloadMenuOpen]);
 
   const createExportImage = async () => {
     const node = exportRef.current?.querySelector<HTMLElement>(".exportSheet");
@@ -181,6 +212,7 @@ export default function Home() {
 
     setExportError(false);
     setExportStatus(format);
+    setDownloadMenuOpen(false);
 
     try {
       const imageData = await createExportImage();
@@ -217,13 +249,7 @@ export default function Home() {
       <div className="backgroundShape backgroundShapeOne" aria-hidden="true" />
       <div className="backgroundShape backgroundShapeTwo" aria-hidden="true" />
 
-      <section className="pageIntro">
-        <div>
-          <p className="pageEyebrow">{copy.pageEyebrow}</p>
-          <h2>{copy.pageTitle}</h2>
-          <p>{copy.pageDescription}</p>
-        </div>
-
+      <div className="pageIntro">
         <div className="controls">
           <div className="languageControl">
             <span>{copy.language}</span>
@@ -246,30 +272,8 @@ export default function Home() {
               </button>
             </div>
           </div>
-
-          <div className="downloadButtons">
-            <button
-              type="button"
-              className="downloadButton secondaryButton"
-              disabled={exportStatus !== null}
-              onClick={() => handleDownload("png")}
-            >
-              {exportStatus === "png" ? copy.generatingPng : copy.downloadPng}
-            </button>
-            <button
-              type="button"
-              className="downloadButton primaryButton"
-              disabled={exportStatus !== null}
-              onClick={() => handleDownload("pdf")}
-            >
-              {exportStatus === "pdf" ? copy.generatingPdf : copy.downloadPdf}
-            </button>
-          </div>
-          <p className="controlStatus" role="status" aria-live="polite">
-            {exportError ? copy.downloadError : ""}
-          </p>
         </div>
-      </section>
+      </div>
 
       <div className="sheetWrapper">
         <BiodataSheet locale={locale} />
@@ -277,6 +281,53 @@ export default function Home() {
 
       <div className="exportStage" ref={exportRef} aria-hidden="true">
         <BiodataSheet locale={locale} exportMode />
+      </div>
+
+      <div className="floatingDownload" ref={downloadMenuRef}>
+        {downloadMenuOpen && (
+          <div
+            className="downloadMenu"
+            id="download-format-menu"
+            role="group"
+            aria-label={copy.chooseFormat}
+          >
+            <button
+              type="button"
+              disabled={exportStatus !== null}
+              onClick={() => handleDownload("png")}
+            >
+              <span>PNG</span>
+              <small>{copy.imageFormat}</small>
+            </button>
+            <button
+              type="button"
+              disabled={exportStatus !== null}
+              onClick={() => handleDownload("pdf")}
+            >
+              <span>PDF</span>
+              <small>{copy.documentFormat}</small>
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="floatingDownloadButton"
+          aria-expanded={downloadMenuOpen}
+          aria-controls="download-format-menu"
+          disabled={exportStatus !== null}
+          onClick={() => setDownloadMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">↓</span>
+          {exportStatus === "png"
+            ? copy.generatingPng
+            : exportStatus === "pdf"
+              ? copy.generatingPdf
+              : copy.download}
+        </button>
+        <p className="controlStatus" role="status" aria-live="polite">
+          {exportError ? copy.downloadError : ""}
+        </p>
       </div>
     </main>
   );
