@@ -93,9 +93,36 @@ a:focus-visible {
 }
 
 .controls {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
   justify-items: end;
+}
+
+.styleSwitch {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 42px;
+  padding: 7px 15px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.styleSwitch:hover {
+  border-color: rgba(244, 189, 126, 0.72);
+  background: rgba(0, 0, 0, 0.28);
+  transform: translateY(-1px);
 }
 
 .languageControl {
@@ -105,6 +132,30 @@ a:focus-visible {
   color: rgba(255, 255, 255, 0.7);
   font-size: 15px;
   font-weight: 600;
+}
+
+@media (max-width: 620px) {
+  .pageIntro {
+    justify-content: stretch;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .languageControl > span {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .styleSwitch {
+    padding-inline: 13px;
+  }
 }
 
 .segmentedControl {

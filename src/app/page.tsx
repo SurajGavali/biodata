@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import {
@@ -251,6 +252,10 @@ export default function Home() {
 
       <div className="pageIntro">
         <div className="controls">
+          <Link className="styleSwitch" href="/instastyle">
+            <span aria-hidden="true">◎</span>
+            Insta Style
+          </Link>
           <div className="languageControl">
             <span>{copy.language}</span>
             <div className="segmentedControl" role="group" aria-label={copy.language}>

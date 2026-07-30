@@ -208,6 +208,24 @@ export const biodata: MarriageBiodata = {
   },
 };
 
+export const profileFacts = {
+  username: "@suraj.gavali",
+  birthDate: "2001-01-16",
+  height: {
+    en: "5′5″",
+    mr: "५′५″",
+  },
+  salary: {
+    en: "Private",
+    mr: "गोपनीय",
+  },
+} satisfies {
+  username: string;
+  birthDate: string;
+  height: LocalizedText;
+  salary: LocalizedText;
+};
+
 export const uiCopy = {
   en: {
     language: "Language",
