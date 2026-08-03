@@ -19,19 +19,24 @@ const localized = (text: LocalizedText, locale: Locale) => text[locale];
 function DetailSection({
   section,
   locale,
+  className = "",
 }: {
   section: BiodataSection;
   locale: Locale;
+  className?: string;
 }) {
   return (
-    <section className="bioSection">
+    <section className={`bioSection ${className}`.trim()}>
       <div className="sectionHeading">
         <span className="headingMark" aria-hidden="true" />
         <h2>{localized(section.title, locale)}</h2>
       </div>
       <dl className="detailList">
-        {section.details.map((detail) => (
-          <div className="detailRow" key={detail.label.en}>
+        {section.details.map((detail, index) => (
+          <div
+            className="detailRow"
+            key={`${detail.label.en}-${detail.value.en}-${index}`}
+          >
             <dt>{localized(detail.label, locale)}</dt>
             <dd>{localized(detail.value, locale)}</dd>
           </div>
@@ -90,7 +95,7 @@ function BiodataSheet({
         </div>
       </header>
 
-      <div className="contentGrid">
+      <div className="contentGrid desktopContentGrid">
         <div className="column">
           <section className="bioSection aboutSection">
             <div className="sectionHeading">
@@ -109,6 +114,28 @@ function BiodataSheet({
           <DetailSection section={biodata.contact} locale={locale} />
         </div>
       </div>
+
+      {!exportMode && (
+        <div className="mobileContentGrid">
+          <div className="mobileColumn mobileRail">
+            <DetailSection section={biodata.personal} locale={locale} />
+            <DetailSection section={biodata.horoscope} locale={locale} />
+            <DetailSection section={biodata.contact} locale={locale} />
+          </div>
+
+          <div className="mobileColumn mobileMain">
+            <section className="bioSection aboutSection">
+              <div className="sectionHeading">
+                <span className="headingMark" aria-hidden="true" />
+                <h2>{copy.about}</h2>
+              </div>
+              <p>{localized(biodata.introduction, locale)}</p>
+            </section>
+            <DetailSection section={biodata.education} locale={locale} />
+            <DetailSection section={biodata.family} locale={locale} />
+          </div>
+        </div>
+      )}
 
       <footer className="sheetFooter">
         <span>{copy.footerNotice}</span>
@@ -324,11 +351,13 @@ export default function Home() {
           onClick={() => setDownloadMenuOpen((open) => !open)}
         >
           <span aria-hidden="true">↓</span>
-          {exportStatus === "png"
-            ? copy.generatingPng
-            : exportStatus === "pdf"
-              ? copy.generatingPdf
-              : copy.download}
+          <span className="downloadButtonLabel">
+            {exportStatus === "png"
+              ? copy.generatingPng
+              : exportStatus === "pdf"
+                ? copy.generatingPdf
+                : copy.download}
+          </span>
         </button>
         <p className="controlStatus" role="status" aria-live="polite">
           {exportError ? copy.downloadError : ""}

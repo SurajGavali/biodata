@@ -450,6 +450,10 @@ a:focus-visible {
   background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.25));
 }
 
+.mobileContentGrid {
+  display: none;
+}
+
 .column {
   display: flex;
   flex-direction: column;
@@ -751,108 +755,286 @@ a:focus-visible {
 
 @media (max-width: 700px) {
   .pageShell {
-    padding: 32px 14px 48px;
+    padding: 18px 8px 34px;
   }
 
   .pageIntro {
     justify-content: flex-start;
+    margin-bottom: 9px;
   }
 
   .controls,
   .languageControl {
     width: 100%;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .languageControl {
-    flex-direction: column;
-    gap: 7px;
+    width: auto;
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .controls {
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .styleSwitch {
+    min-height: 38px;
+    padding: 6px 11px;
+    font-size: 13px;
+    line-height: 1.05;
+  }
+
+  .segmentedControl {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .segmentedControl button {
+    min-width: 58px;
+    padding: 6px 9px;
+    font-size: 13px;
   }
 
   .floatingDownload {
-    right: max(14px, env(safe-area-inset-right));
-    bottom: max(14px, env(safe-area-inset-bottom));
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
   }
 
-  .biodataSheet {
+  .floatingDownloadButton {
+    justify-content: center;
+    width: 48px;
+    min-height: 48px;
+    padding: 0;
+  }
+
+  .floatingDownloadButton > span:first-child {
+    font-size: 21px;
+  }
+
+  .downloadButtonLabel {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .downloadMenu {
+    width: min(205px, calc(100vw - 24px));
+  }
+
+  .sheetWrapper .biodataSheet:not(.exportSheet) {
     min-height: 0;
-    padding: 34px 26px 76px;
+    padding: 20px 14px 43px;
+    border-radius: 2px;
   }
 
-  .profileHeader {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    justify-items: center;
-    margin-bottom: 38px;
-    text-align: center;
-  }
-
-  .portraitOrbits {
-    width: 210px;
-    height: 210px;
-  }
-
-  .portraitFrame {
-    width: 178px;
-    height: 178px;
-  }
-
-  .identity h1,
-  [lang="mr"] .identity h1 {
+  .sheetWrapper .profileHeader {
+    grid-template-areas: "identity portrait";
+    grid-template-columns: minmax(0, 1.55fr) minmax(102px, 0.85fr);
+    gap: 9px;
     align-items: center;
-    font-size: 46px;
-    line-height: 0.86;
+    min-height: 132px;
+    margin-bottom: 18px;
+    text-align: left;
   }
 
-  .headline {
-    font-size: 14px;
-    letter-spacing: 0.1em;
+  .sheetWrapper .portraitOrbits {
+    grid-area: portrait;
+    width: 118px;
+    height: 118px;
+    justify-self: end;
   }
 
-  .titleRule {
-    margin-inline: auto;
+  .sheetWrapper .portraitFrame {
+    width: 99px;
+    height: 99px;
+    border-width: 4px;
+    box-shadow: 0 8px 20px rgba(7, 59, 67, 0.18);
   }
 
-  .contentGrid {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .sheetWrapper .orbitOne {
+    inset: 2px;
+    border-width: 2px;
   }
 
-  .contentGrid::after {
+  .sheetWrapper .orbitTwo {
+    inset: -3px 10px 5px -2px;
+    border-width: 2px;
+  }
+
+  .sheetWrapper .identity {
+    grid-area: identity;
+  }
+
+  .sheetWrapper .identity h1,
+  .sheetWrapper [lang="mr"] .identity h1 {
+    align-items: flex-start;
+    font-size: clamp(25px, 8.2vw, 32px);
+    letter-spacing: 0.045em;
+    line-height: 0.82;
+  }
+
+  .sheetWrapper .identity h1 strong {
+    margin-top: 10px;
+  }
+
+  .sheetWrapper [lang="mr"] .identity h1 strong {
+    margin-top: 6px;
+  }
+
+  .sheetWrapper .headline {
+    margin-top: 15px;
+    font-size: 8.5px;
+    letter-spacing: 0.09em;
+    line-height: 1.2;
+  }
+
+  .sheetWrapper .titleRule {
+    width: 25px;
+    height: 2px;
+    margin-top: 8px;
+  }
+
+  .sheetWrapper .desktopContentGrid {
     display: none;
   }
 
-  .column {
-    gap: 28px;
+  .sheetWrapper .mobileContentGrid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
+    gap: 15px;
   }
 
-  .headingMark,
-  .columnRight .headingMark {
-    width: 20px;
-    margin-left: -26px;
+  .sheetWrapper .mobileContentGrid::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(37% + 7px);
+    width: 1px;
+    content: "";
+    background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.18));
   }
 
-  .sectionHeading h2 {
-    font-size: 20px;
-  }
-
-  .detailRow {
-    grid-template-columns: minmax(96px, 0.4fr) minmax(0, 0.6fr);
-  }
-
-  .sheetFooter {
-    right: 26px;
-    bottom: 15px;
-    left: 26px;
+  .sheetWrapper .mobileColumn {
+    display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 15px;
+    min-width: 0;
+  }
+
+  .sheetWrapper .mobileMain {
+    padding-left: 1px;
+  }
+
+  .sheetWrapper .sectionHeading {
+    gap: 6px;
+    margin-bottom: 7px;
+  }
+
+  .sheetWrapper .headingMark,
+  .sheetWrapper .columnRight .headingMark {
+    width: 12px;
+    height: 4px;
+    margin-left: -14px;
+  }
+
+  .sheetWrapper .mobileMain .headingMark {
+    width: 9px;
+    margin-left: -9px;
+  }
+
+  .sheetWrapper .sectionHeading h2 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    line-height: 1.05;
+  }
+
+  .sheetWrapper .aboutSection p {
+    font-size: 9.5px;
+    line-height: 1.35;
+  }
+
+  .sheetWrapper .detailList {
+    gap: 4px;
+  }
+
+  .sheetWrapper .detailRow {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    padding-bottom: 4px;
+    line-height: 1.15;
+  }
+
+  .sheetWrapper .detailRow dt {
+    font-size: 8px;
+    line-height: 1.15;
+  }
+
+  .sheetWrapper .detailRow dd {
+    font-size: 9.5px;
+    line-height: 1.18;
+  }
+
+  .sheetWrapper [lang="mr"] .sectionHeading h2 {
+    font-size: 10px;
+  }
+
+  .sheetWrapper [lang="mr"] .detailRow dt {
+    font-size: 7.5px;
+  }
+
+  .sheetWrapper [lang="mr"] .detailRow dd,
+  .sheetWrapper [lang="mr"] .aboutSection p {
+    font-size: 9px;
+  }
+
+  .sheetWrapper .sheetFooter {
+    right: 14px;
+    bottom: 10px;
+    left: 14px;
+    display: block;
+    padding-top: 5px;
+    font-size: 7px;
+    line-height: 1.2;
   }
 }
 
 @media (max-width: 420px) {
-  .detailRow {
-    grid-template-columns: 1fr;
-    gap: 3px;
+  .sheetWrapper .profileHeader {
+    grid-template-columns: minmax(0, 1.5fr) minmax(92px, 0.8fr);
+  }
+
+  .sheetWrapper .portraitOrbits {
+    width: 106px;
+    height: 106px;
+  }
+
+  .sheetWrapper .portraitFrame {
+    width: 90px;
+    height: 90px;
+  }
+
+  .sheetWrapper .mobileContentGrid {
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+    gap: 13px;
+  }
+
+  .sheetWrapper .mobileContentGrid::after {
+    left: calc(38% + 6px);
+  }
+
+  .sheetWrapper .sectionHeading h2 {
+    font-size: 10px;
+  }
+
+  .sheetWrapper .detailRow dd {
+    font-size: 9px;
   }
 }
 
