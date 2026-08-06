@@ -116,13 +116,6 @@ function BiodataSheet({
 
       <div className="contentGrid desktopContentGrid">
         <div className="column">
-          <section className="bioSection aboutSection">
-            <div className="sectionHeading">
-              <span className="headingMark" aria-hidden="true" />
-              <h2>{copy.about}</h2>
-            </div>
-            <p>{localized(biodata.introduction, locale)}</p>
-          </section>
           <DetailSection section={classicPersonal} locale={locale} />
           <DetailSection section={biodata.education} locale={locale} />
         </div>
@@ -143,13 +136,6 @@ function BiodataSheet({
           </div>
 
           <div className="mobileColumn mobileMain">
-            <section className="bioSection aboutSection">
-              <div className="sectionHeading">
-                <span className="headingMark" aria-hidden="true" />
-                <h2>{copy.about}</h2>
-              </div>
-              <p>{localized(biodata.introduction, locale)}</p>
-            </section>
             <DetailSection section={biodata.education} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
           </div>
