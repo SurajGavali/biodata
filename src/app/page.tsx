@@ -63,6 +63,15 @@ function BiodataSheet({
         detail.label.en !== "Birth place",
     ),
   };
+  const classicEducation: BiodataSection = {
+    ...biodata.education,
+    details: biodata.education.details.filter(
+      (detail) =>
+        detail.label.en !== "Profession" &&
+        detail.label.en !== "Employer" &&
+        detail.label.en !== "Work location",
+    ),
+  };
 
   return (
     <article
@@ -117,7 +126,7 @@ function BiodataSheet({
       <div className="contentGrid desktopContentGrid">
         <div className="column">
           <DetailSection section={classicPersonal} locale={locale} />
-          <DetailSection section={biodata.education} locale={locale} />
+          <DetailSection section={classicEducation} locale={locale} />
         </div>
 
         <div className="column columnRight">
@@ -136,7 +145,7 @@ function BiodataSheet({
           </div>
 
           <div className="mobileColumn mobileMain">
-            <DetailSection section={biodata.education} locale={locale} />
+            <DetailSection section={classicEducation} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
           </div>
         </div>
