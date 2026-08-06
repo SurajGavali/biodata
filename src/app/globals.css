@@ -565,40 +565,36 @@ a:focus-visible {
   font-weight: 600;
 }
 
-.socialList {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  list-style: none;
+.headerLocationValue {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.socialList a {
-  display: flex;
-  gap: 9px;
+.headerSocialLinks {
+  display: inline-flex;
+  gap: 7px;
   align-items: center;
-  min-width: 0;
-  color: var(--ink);
-  text-decoration: none;
+}
+
+.headerSocialLinks a {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  color: var(--peach-deep);
+  place-items: center;
   transition:
     color 150ms ease,
     transform 150ms ease;
 }
 
-.socialList a:hover {
-  color: var(--peach-deep);
+.headerSocialLinks a:hover {
+  color: var(--ink);
   transform: translateY(-1px);
 }
 
-.socialSymbol {
-  display: grid;
-  flex: 0 0 auto;
-  width: 27px;
-  height: 27px;
-  color: var(--peach-deep);
-  place-items: center;
-}
-
-.socialSymbol svg {
+.headerSocialLinks svg {
   width: 100%;
   height: 100%;
   fill: none;
@@ -608,20 +604,10 @@ a:focus-visible {
   stroke-width: 1.8;
 }
 
-.socialSymbol svg path,
-.socialSymbol .socialSymbolDot {
+.headerSocialLinks svg path,
+.headerSocialLinks .socialSymbolDot {
   fill: currentColor;
   stroke: none;
-}
-
-.socialUsername {
-  min-width: 0;
-  overflow: hidden;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .sheetFooter {
@@ -802,21 +788,17 @@ a:focus-visible {
   font-size: 11px;
 }
 
-.exportSheet .socialList {
-  gap: 9px;
+.exportSheet .headerLocationValue {
+  gap: 5px;
 }
 
-.exportSheet .socialList a {
+.exportSheet .headerSocialLinks {
   gap: 4px;
 }
 
-.exportSheet .socialSymbol {
-  width: 18px;
-  height: 18px;
-}
-
-.exportSheet .socialUsername {
-  font-size: 9px;
+.exportSheet .headerSocialLinks a {
+  width: 14px;
+  height: 14px;
 }
 
 .exportSheet .sheetFooter {
@@ -1122,22 +1104,17 @@ a:focus-visible {
     line-height: 1.18;
   }
 
-  .sheetWrapper .socialList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .sheetWrapper .socialList a {
+  .sheetWrapper .headerLocationValue {
     gap: 3px;
   }
 
-  .sheetWrapper .socialSymbol {
-    width: 18px;
-    height: 18px;
+  .sheetWrapper .headerSocialLinks {
+    gap: 3px;
   }
 
-  .sheetWrapper .socialUsername {
-    font-size: 8px;
+  .sheetWrapper .headerSocialLinks a {
+    width: 12px;
+    height: 12px;
   }
 
   .sheetWrapper [lang="mr"] .sectionHeading h2 {

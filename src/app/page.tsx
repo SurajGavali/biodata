@@ -21,13 +21,11 @@ const socialLinks = [
   {
     href: "https://instagram.com/surajgavali_",
     label: "Instagram",
-    username: "surajgavali_",
     type: "instagram",
   },
   {
     href: "https://www.linkedin.com/in/suraj-gavali",
     label: "LinkedIn",
-    username: "suraj-gavali",
     type: "linkedin",
   },
 ] as const;
@@ -49,38 +47,6 @@ function LinkedInSymbol() {
       <circle className="socialSymbolDot" cx="7.25" cy="8" r="1.15" />
       <path d="M6.25 11v6.5h2V11zM11 11v6.5h2v-3.2c0-1.2.5-1.9 1.55-1.9 1 0 1.45.66 1.45 1.9v3.2h2v-3.75c0-2.1-1.15-3.1-2.75-3.1-1.15 0-1.9.62-2.25 1.18V11z" />
     </svg>
-  );
-}
-
-function SocialSection({ locale }: { locale: Locale }) {
-  return (
-    <section className="bioSection socialSection">
-      <div className="sectionHeading">
-        <span className="headingMark" aria-hidden="true" />
-        <h2>{locale === "en" ? "Social" : "सोशल"}</h2>
-      </div>
-      <ul className="socialList">
-        {socialLinks.map((social) => (
-          <li key={social.href}>
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${social.label}: ${social.username}`}
-            >
-              <span className="socialSymbol">
-                {social.type === "instagram" ? (
-                  <InstagramSymbol />
-                ) : (
-                  <LinkedInSymbol />
-                )}
-              </span>
-              <span className="socialUsername">{social.username}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }
 
@@ -179,7 +145,26 @@ function BiodataSheet({
             </div>
             <div>
               <dt>{locale === "en" ? "Location" : "ठिकाण"}</dt>
-              <dd>{localized(profileFacts.location, locale)}</dd>
+              <dd className="headerLocationValue">
+                <span>{localized(profileFacts.location, locale)}</span>
+                <span className="headerSocialLinks">
+                  {socialLinks.map((social) => (
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open ${social.label} profile`}
+                      key={social.href}
+                    >
+                      {social.type === "instagram" ? (
+                        <InstagramSymbol />
+                      ) : (
+                        <LinkedInSymbol />
+                      )}
+                    </a>
+                  ))}
+                </span>
+              </dd>
             </div>
           </dl>
         </div>
@@ -195,7 +180,6 @@ function BiodataSheet({
           <DetailSection section={biodata.horoscope} locale={locale} />
           <DetailSection section={biodata.family} locale={locale} />
           <DetailSection section={biodata.contact} locale={locale} />
-          <SocialSection locale={locale} />
         </div>
       </div>
 
@@ -210,7 +194,6 @@ function BiodataSheet({
           <div className="mobileColumn mobileMain">
             <DetailSection section={classicEducation} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
-            <SocialSection locale={locale} />
           </div>
         </div>
       )}
