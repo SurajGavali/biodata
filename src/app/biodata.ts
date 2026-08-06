@@ -82,6 +82,13 @@ export const biodata: MarriageBiodata = {
         },
       },
       {
+        label: { en: "College", mr: "महाविद्यालय" },
+        value: {
+          en: "College of Engineering, Pune",
+          mr: "कॉलेज ऑफ इंजिनिअरिंग, पुणे",
+        },
+      },
+      {
         label: { en: "Profession", mr: "नोकरी" },
         value: {
           en: "Software Engineer",
@@ -145,8 +152,8 @@ export const biodata: MarriageBiodata = {
       {
         label: { en: "Brother", mr: "भाऊ" },
         value: {
-          en: "Vijay Maruti Gavali",
-          mr: "कु. विजय मारुती गावळी",
+          en: "Dheeraj Maruti Gavali",
+          mr: "कु. धीरज मारुती गावळी",
         },
       },
       {
@@ -186,22 +193,22 @@ export const biodata: MarriageBiodata = {
         },
       },
       {
-        label: { en: "Mobile 1", mr: "मोबाईल १" },
+        label: { en: "Father's mobile", mr: "वडिलांचा मोबाईल" },
         value: { en: "8408012121", mr: "८४०८०१२१२१" },
       },
       {
-        label: { en: "Mobile 2", mr: "मोबाईल २" },
+        label: { en: "Mother's mobile", mr: "आईचा मोबाईल" },
         value: { en: "9730927098", mr: "९७३०९२७०९८" },
       },
       {
-        label: { en: "Mobile 3", mr: "मोबाईल ३" },
+        label: { en: "Brother's mobile", mr: "भावाचा मोबाईल" },
         value: { en: "7058525310", mr: "७०५८५२५३१०" },
       },
       {
         label: { en: "Relations", mr: "इतर पाहुणे" },
         value: {
-          en: "Gavali, Chougule, Jadhav, Nagare, Chavan, Kamble, Chougule, Bamane, Patil, Lohar, Daiphode",
-          mr: "गावळी, चौगुले, जाधव, नागरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डईफोडे",
+          en: "Gavali, Chougule, Jadhav, Nangare, Chavan, Kamble, Chougule, Bamane, Patil, Lohar, Doiphode",
+          mr: "गावळी, चौगुले, जाधव, नांगरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डोईफोडे",
         },
       },
     ],

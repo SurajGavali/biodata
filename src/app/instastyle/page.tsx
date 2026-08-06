@@ -201,17 +201,17 @@ function createTiles(age: number): Tile[] {
       preview: education[0].value,
       icon: GraduationCap,
       tone: "violet",
-      details: [education[0]],
+      details: education.slice(0, 2),
     },
     {
       id: "career",
       title: { en: "Career", mr: "करिअर" },
       eyebrow: { en: "Software", mr: "सॉफ्टवेअर" },
-      preview: education[1].value,
+      preview: education[2].value,
       icon: BriefcaseBusiness,
       tone: "amber",
       details: [
-        ...education.slice(1),
+        ...education.slice(2),
         localizedDetail(
           { en: "Salary", mr: "पगार" },
           profileFacts.salary,
@@ -568,7 +568,9 @@ function DetailDialog({
         {tile.id === "contact" && (
           <a className={styles.callAction} href="tel:+918408012121">
             <Phone size={17} aria-hidden="true" />
-            {locale === "en" ? "Call primary number" : "मुख्य क्रमांकावर कॉल करा"}
+            {locale === "en"
+              ? "Call father's number"
+              : "वडिलांच्या क्रमांकावर कॉल करा"}
           </a>
         )}
       </section>
