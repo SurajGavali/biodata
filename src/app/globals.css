@@ -565,6 +565,79 @@ a:focus-visible {
   font-weight: 600;
 }
 
+.socialList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  list-style: none;
+}
+
+.socialList a {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+  padding: 9px 10px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper-muted);
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.socialList a:hover {
+  border-color: var(--peach-deep);
+  transform: translateY(-1px);
+}
+
+.socialSymbol {
+  display: grid;
+  flex: 0 0 auto;
+  width: 27px;
+  height: 27px;
+  color: var(--peach-deep);
+  place-items: center;
+}
+
+.socialSymbol svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.socialSymbol svg path,
+.socialSymbol .socialSymbolDot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.socialText {
+  display: grid;
+  min-width: 0;
+}
+
+.socialText strong {
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.socialText small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .sheetFooter {
   position: absolute;
   right: 62px;
@@ -741,6 +814,29 @@ a:focus-visible {
 
 .exportSheet .detailRow dd {
   font-size: 11px;
+}
+
+.exportSheet .socialList {
+  gap: 5px;
+}
+
+.exportSheet .socialList a {
+  gap: 5px;
+  padding: 5px 6px;
+  border-radius: 5px;
+}
+
+.exportSheet .socialSymbol {
+  width: 18px;
+  height: 18px;
+}
+
+.exportSheet .socialText strong {
+  font-size: 9px;
+}
+
+.exportSheet .socialText small {
+  font-size: 7px;
 }
 
 .exportSheet .sheetFooter {
@@ -1044,6 +1140,30 @@ a:focus-visible {
   .sheetWrapper .detailRow dd {
     font-size: 9.5px;
     line-height: 1.18;
+  }
+
+  .sheetWrapper .socialList {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .sheetWrapper .socialList a {
+    gap: 5px;
+    padding: 5px 6px;
+    border-radius: 5px;
+  }
+
+  .sheetWrapper .socialSymbol {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sheetWrapper .socialText strong {
+    font-size: 9px;
+  }
+
+  .sheetWrapper .socialText small {
+    font-size: 7px;
   }
 
   .sheetWrapper [lang="mr"] .sectionHeading h2 {
