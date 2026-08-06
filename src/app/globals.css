@@ -8,8 +8,8 @@
   --text: #333a3b;
   --muted: #6f7677;
   --line: #e8ddd4;
-  --display-font: "Playfair Display", Georgia, serif;
-  --label-font: "Space Mono", "Courier New", monospace;
+  --display-font: "Darker Grotesque", Arial, sans-serif;
+  --label-font: "Darker Grotesque", Arial, sans-serif;
 }
 
 * {
@@ -415,7 +415,6 @@ a:focus-visible {
 .identity h1 strong {
   margin-top: 19px;
   color: inherit;
-  font-style: italic;
   font-weight: 700;
 }
 
