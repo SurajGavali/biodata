@@ -67,6 +67,7 @@ const copy = {
   en: {
     age: "Age",
     height: "Height",
+    weight: "Weight",
     salary: "Salary",
     classic: "Classic Biodata",
     contact: "Contact",
@@ -95,6 +96,7 @@ const copy = {
   mr: {
     age: "वय",
     height: "उंची",
+    weight: "वजन",
     salary: "पगार",
     classic: "क्लासिक परिचयपत्र",
     contact: "संपर्क",
@@ -149,6 +151,11 @@ function createTiles(age: number): Tile[] {
   const personal = biodata.personal.details;
   const education = biodata.education.details;
   const contact = biodata.contact.details;
+  const address = contact.find((detail) => detail.label.en === "Address")!;
+  const relation = contact.find((detail) => detail.label.en === "Relations")!;
+  const contactDetails = contact.filter(
+    (detail) => detail.label.en !== "Relations",
+  );
 
   return [
     {
@@ -177,7 +184,7 @@ function createTiles(age: number): Tile[] {
       preview: profileFacts.height,
       icon: Ruler,
       tone: "berry",
-      details: personal.slice(3, 6),
+      details: personal.slice(3),
     },
     {
       id: "birth",
@@ -207,7 +214,7 @@ function createTiles(age: number): Tile[] {
       id: "career",
       title: { en: "Career", mr: "करिअर" },
       eyebrow: { en: "Software", mr: "सॉफ्टवेअर" },
-      preview: education[2].value,
+      preview: biodata.headline,
       icon: BriefcaseBusiness,
       tone: "amber",
       details: [
@@ -246,10 +253,10 @@ function createTiles(age: number): Tile[] {
       id: "contact",
       title: { en: "Contact", mr: "संपर्क" },
       eyebrow: { en: "Kolhapur", mr: "कोल्हापूर" },
-      preview: contact[0].value,
+      preview: address.value,
       icon: Phone,
       tone: "blue",
-      details: contact.slice(0, 4),
+      details: contactDetails,
     },
     {
       id: "relations",
@@ -261,7 +268,7 @@ function createTiles(age: number): Tile[] {
       },
       icon: HeartHandshake,
       tone: "plum",
-      details: [contact[4]],
+      details: [relation],
     },
   ];
 }
@@ -302,13 +309,13 @@ function saveDataUrl(dataUrl: string, filename: string) {
   link.click();
 }
 
-function Portrait({ priority = false }: { priority?: boolean }) {
+function Portrait() {
   return (
     <Image
       src="/profile-photo.png"
       alt="Suraj Gavali"
       fill
-      priority={priority}
+      loading="eager"
       sizes="(max-width: 640px) 96px, 160px"
       className={styles.portrait}
     />
@@ -361,7 +368,7 @@ function ProfileContent({
       <header className={styles.profileHeader}>
         <div className={styles.avatarRing}>
           <div className={styles.avatar}>
-            <Portrait priority />
+            <Portrait />
           </div>
         </div>
 
@@ -372,8 +379,8 @@ function ProfileContent({
             value={localize(profileFacts.height, locale)}
           />
           <Stat
-            label={text.salary}
-            value={localize(profileFacts.salary, locale)}
+            label={text.weight}
+            value={localize(profileFacts.weight, locale)}
           />
         </div>
 
@@ -384,7 +391,9 @@ function ProfileContent({
           </div>
           <p className={styles.headline}>
             <BriefcaseBusiness size={16} aria-hidden="true" />
-            {locale === "en" ? "Software Engineer" : "सॉफ्टवेअर इंजिनिअर"}
+            {locale === "en"
+              ? "Software Engineer at Mastercard"
+              : "मास्टरकार्ड येथे सॉफ्टवेअर इंजिनिअर"}
           </p>
           <p className={styles.bio}>
             {locale === "en" ? "B.Tech CSE" : "बी.टेक. CSE"}
@@ -549,7 +558,8 @@ function DetailDialog({
         <dl className={styles.dialogDetails}>
           {tile.details.map((detail, index) => {
             const value = localize(detail.value, locale);
-            const isPhone = tile.id === "contact" && index > 0;
+            const isPhone =
+              tile.id === "contact" && detail.label.en.includes("mobile");
             return (
               <div key={`${detail.label.en}-${index}`}>
                 <dt>{localize(detail.label, locale)}</dt>
@@ -566,11 +576,11 @@ function DetailDialog({
         </dl>
 
         {tile.id === "contact" && (
-          <a className={styles.callAction} href="tel:+918408012121">
+          <a className={styles.callAction} href="tel:+918408878186">
             <Phone size={17} aria-hidden="true" />
             {locale === "en"
-              ? "Call father's number"
-              : "वडिलांच्या क्रमांकावर कॉल करा"}
+              ? "Call Suraj"
+              : "सुरजला कॉल करा"}
           </a>
         )}
       </section>
@@ -697,7 +707,7 @@ export default function InstaStylePage() {
         });
         pdf.addImage(imageData, "PNG", 0, 0, 210, 297, undefined, "FAST");
         pdf.setProperties({
-          author: "Suraj Maruti Gavali",
+          author: "Suraj Gavali",
           subject: "Marriage biodata",
           title: `Suraj Gavali Insta Style Biodata (${locale.toUpperCase()})`,
         });

@@ -25,16 +25,16 @@ export type MarriageBiodata = {
 
 export const biodata: MarriageBiodata = {
   name: {
-    en: "Suraj Maruti Gavali",
-    mr: "सुरज मारुती गावळी",
+    en: "Suraj Gavali",
+    mr: "सुरज गवळी",
   },
   headline: {
-    en: "Software Engineer · Pune",
-    mr: "सॉफ्टवेअर इंजिनिअर · पुणे",
+    en: "Software Engineer at Mastercard · Pune",
+    mr: "मास्टरकार्ड येथे सॉफ्टवेअर इंजिनिअर · पुणे",
   },
   introduction: {
-    en: "B.Tech graduate in Computer Science and Engineering, currently working as a Software Engineer in Pune.",
-    mr: "बी.टेक. कम्प्युटर सायन्स अँड इंजिनिअरिंग पदवीधर. सध्या पुणे येथे सॉफ्टवेअर इंजिनिअर म्हणून कार्यरत.",
+    en: "B.Tech graduate in Computer Science and Engineering, currently working as a Software Engineer at Mastercard in Pune.",
+    mr: "बी.टेक. कम्प्युटर सायन्स अँड इंजिनिअरिंग पदवीधर. सध्या पुणे येथे मास्टरकार्डमध्ये सॉफ्टवेअर इंजिनिअर म्हणून कार्यरत.",
   },
   personal: {
     title: {
@@ -57,6 +57,10 @@ export const biodata: MarriageBiodata = {
       {
         label: { en: "Height", mr: "उंची" },
         value: { en: "5 ft 5 in", mr: "५ फूट ५ इंच" },
+      },
+      {
+        label: { en: "Weight", mr: "वजन" },
+        value: { en: "68 kg", mr: "६८ किलो" },
       },
       {
         label: { en: "Complexion", mr: "वर्ण" },
@@ -94,6 +98,10 @@ export const biodata: MarriageBiodata = {
           en: "Software Engineer",
           mr: "सॉफ्टवेअर इंजिनिअर",
         },
+      },
+      {
+        label: { en: "Employer", mr: "कंपनी" },
+        value: { en: "Mastercard", mr: "मास्टरकार्ड" },
       },
       {
         label: { en: "Work location", mr: "नोकरीचे ठिकाण" },
@@ -139,21 +147,32 @@ export const biodata: MarriageBiodata = {
         label: { en: "Father", mr: "वडील" },
         value: {
           en: "Maruti Shamrao Gavali",
-          mr: "श्री. मारुती शामराव गावळी",
+          mr: "श्री. मारुती शामराव गवळी",
         },
       },
       {
         label: { en: "Mother", mr: "आई" },
         value: {
           en: "Anandi Maruti Gavali",
-          mr: "सौ. आनंदी मारुती गावळी",
+          mr: "सौ. आनंदी मारुती गवळी",
         },
       },
       {
         label: { en: "Brother", mr: "भाऊ" },
         value: {
           en: "Dheeraj Maruti Gavali",
-          mr: "कु. धीरज मारुती गावळी",
+          mr: "कु. धीरज मारुती गवळी",
+        },
+      },
+      {
+        label: { en: "Brother's occupation", mr: "भावाचा व्यवसाय" },
+        value: { en: "Businessman", mr: "व्यावसायिक" },
+      },
+      {
+        label: { en: "Family business", mr: "कौटुंबिक व्यवसाय" },
+        value: {
+          en: "Two Kolhapuri chappal shops, managed by father and brother",
+          mr: "दोन कोल्हापुरी चप्पल दुकाने — वडील व भाऊ सांभाळतात",
         },
       },
       {
@@ -167,7 +186,7 @@ export const biodata: MarriageBiodata = {
         label: { en: "Uncle", mr: "चुलते" },
         value: {
           en: "Balkrishna Shamrao Gavali",
-          mr: "श्री. बाळकृष्ण शामराव गावळी",
+          mr: "श्री. बाळकृष्ण शामराव गवळी",
         },
       },
       {
@@ -185,6 +204,10 @@ export const biodata: MarriageBiodata = {
       mr: "संपर्क",
     },
     details: [
+      {
+        label: { en: "Suraj's mobile", mr: "सुरजचा मोबाईल" },
+        value: { en: "8408878186", mr: "८४०८८७८१८६" },
+      },
       {
         label: { en: "Address", mr: "पत्ता" },
         value: {
@@ -208,7 +231,7 @@ export const biodata: MarriageBiodata = {
         label: { en: "Relations", mr: "इतर पाहुणे" },
         value: {
           en: "Gavali, Chougule, Jadhav, Nangare, Chavan, Kamble, Chougule, Bamane, Patil, Lohar, Doiphode",
-          mr: "गावळी, चौगुले, जाधव, नांगरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डोईफोडे",
+          mr: "गवळी, चौगुले, जाधव, नांगरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डोईफोडे",
         },
       },
     ],
@@ -218,9 +241,21 @@ export const biodata: MarriageBiodata = {
 export const profileFacts = {
   username: "@suraj.gavali",
   birthDate: "2001-01-16",
+  born: {
+    en: "16 January 2001 | Kolhapur",
+    mr: "१६ जानेवारी २००१ | कोल्हापूर",
+  },
   height: {
     en: "5′5″",
     mr: "५′५″",
+  },
+  location: {
+    en: "Pune",
+    mr: "पुणे",
+  },
+  weight: {
+    en: "68 kg",
+    mr: "६८ किलो",
   },
   salary: {
     en: "Private",
@@ -229,7 +264,10 @@ export const profileFacts = {
 } satisfies {
   username: string;
   birthDate: string;
+  born: LocalizedText;
   height: LocalizedText;
+  location: LocalizedText;
+  weight: LocalizedText;
   salary: LocalizedText;
 };
 
@@ -245,7 +283,7 @@ export const uiCopy = {
     generatingPdf: "Preparing PDF…",
     generatingPng: "Preparing PNG…",
     downloadError: "The download could not be created. Please try again.",
-    footerNotice: "Suraj Maruti Gavali · Marriage biodata",
+    footerNotice: "Suraj Gavali · Marriage biodata",
     about: "Profile",
   },
   mr: {
@@ -259,7 +297,7 @@ export const uiCopy = {
     generatingPdf: "PDF तयार होत आहे…",
     generatingPng: "PNG तयार होत आहे…",
     downloadError: "डाउनलोड तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
-    footerNotice: "सुरज मारुती गावळी · विवाह परिचयपत्र",
+    footerNotice: "सुरज गवळी · विवाह परिचयपत्र",
     about: "परिचय",
   },
 } satisfies Record<Locale, Record<string, string>>;

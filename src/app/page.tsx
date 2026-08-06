@@ -9,6 +9,7 @@ import {
   type BiodataSection,
   type Locale,
   type LocalizedText,
+  profileFacts,
   uiCopy,
 } from "./biodata";
 
@@ -54,6 +55,14 @@ function BiodataSheet({
   exportMode?: boolean;
 }) {
   const copy = uiCopy[locale];
+  const classicPersonal: BiodataSection = {
+    ...biodata.personal,
+    details: biodata.personal.details.filter(
+      (detail) =>
+        detail.label.en !== "Date of birth" &&
+        detail.label.en !== "Birth place",
+    ),
+  };
 
   return (
     <article
@@ -73,10 +82,10 @@ function BiodataSheet({
               alt={
                 locale === "en"
                   ? "Portrait of Suraj Gavali"
-                  : "सुरज गावळी यांचे छायाचित्र"
+                  : "सुरज गवळी यांचे छायाचित्र"
               }
               fill
-              priority
+              loading="eager"
               sizes={exportMode ? "220px" : "(max-width: 760px) 180px, 230px"}
               className="portraitImage"
             />
@@ -92,6 +101,16 @@ function BiodataSheet({
           </h1>
           <p className="headline">{localized(biodata.headline, locale)}</p>
           <span className="titleRule" aria-hidden="true" />
+          <dl className="headerFacts">
+            <div>
+              <dt>{locale === "en" ? "Born" : "जन्म"}</dt>
+              <dd>{localized(profileFacts.born, locale)}</dd>
+            </div>
+            <div>
+              <dt>{locale === "en" ? "Location" : "ठिकाण"}</dt>
+              <dd>{localized(profileFacts.location, locale)}</dd>
+            </div>
+          </dl>
         </div>
       </header>
 
@@ -104,7 +123,7 @@ function BiodataSheet({
             </div>
             <p>{localized(biodata.introduction, locale)}</p>
           </section>
-          <DetailSection section={biodata.personal} locale={locale} />
+          <DetailSection section={classicPersonal} locale={locale} />
           <DetailSection section={biodata.education} locale={locale} />
         </div>
 
@@ -118,7 +137,7 @@ function BiodataSheet({
       {!exportMode && (
         <div className="mobileContentGrid">
           <div className="mobileColumn mobileRail">
-            <DetailSection section={biodata.personal} locale={locale} />
+            <DetailSection section={classicPersonal} locale={locale} />
             <DetailSection section={biodata.horoscope} locale={locale} />
             <DetailSection section={biodata.contact} locale={locale} />
           </div>
@@ -258,9 +277,9 @@ export default function Home() {
         });
         pdf.addImage(imageData, "PNG", 0, 0, 210, 297, undefined, "FAST");
         pdf.setProperties({
-          author: "Suraj Maruti Gavali",
+          author: "Suraj Gavali",
           subject: "Marriage biodata",
-          title: `Suraj Maruti Gavali Biodata (${locale.toUpperCase()})`,
+          title: `Suraj Gavali Biodata (${locale.toUpperCase()})`,
         });
         pdf.save(`${filename}.pdf`);
       }
