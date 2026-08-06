@@ -21,13 +21,13 @@ const socialLinks = [
   {
     href: "https://instagram.com/surajgavali_",
     label: "Instagram",
-    value: "@surajgavali_",
+    username: "surajgavali_",
     type: "instagram",
   },
   {
     href: "https://www.linkedin.com/in/suraj-gavali",
     label: "LinkedIn",
-    value: "/in/suraj-gavali",
+    username: "suraj-gavali",
     type: "linkedin",
   },
 ] as const;
@@ -66,7 +66,7 @@ function SocialSection({ locale }: { locale: Locale }) {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${social.label}: ${social.value}`}
+              aria-label={`${social.label}: ${social.username}`}
             >
               <span className="socialSymbol">
                 {social.type === "instagram" ? (
@@ -75,10 +75,7 @@ function SocialSection({ locale }: { locale: Locale }) {
                   <LinkedInSymbol />
                 )}
               </span>
-              <span className="socialText">
-                <strong>{social.label}</strong>
-                <small>{social.value}</small>
-              </span>
+              <span className="socialUsername">{social.username}</span>
             </a>
           </li>
         ))}

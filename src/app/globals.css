@@ -568,7 +568,7 @@ a:focus-visible {
 .socialList {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
+  gap: 18px;
   list-style: none;
 }
 
@@ -577,19 +577,15 @@ a:focus-visible {
   gap: 9px;
   align-items: center;
   min-width: 0;
-  padding: 9px 10px;
   color: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  background: var(--paper-muted);
   text-decoration: none;
   transition:
-    border-color 150ms ease,
+    color 150ms ease,
     transform 150ms ease;
 }
 
 .socialList a:hover {
-  border-color: var(--peach-deep);
+  color: var(--peach-deep);
   transform: translateY(-1px);
 }
 
@@ -618,21 +614,11 @@ a:focus-visible {
   stroke: none;
 }
 
-.socialText {
-  display: grid;
+.socialUsername {
   min-width: 0;
-}
-
-.socialText strong {
-  font-size: 14px;
-  line-height: 1.1;
-}
-
-.socialText small {
   overflow: hidden;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -817,13 +803,11 @@ a:focus-visible {
 }
 
 .exportSheet .socialList {
-  gap: 5px;
+  gap: 9px;
 }
 
 .exportSheet .socialList a {
-  gap: 5px;
-  padding: 5px 6px;
-  border-radius: 5px;
+  gap: 4px;
 }
 
 .exportSheet .socialSymbol {
@@ -831,12 +815,8 @@ a:focus-visible {
   height: 18px;
 }
 
-.exportSheet .socialText strong {
+.exportSheet .socialUsername {
   font-size: 9px;
-}
-
-.exportSheet .socialText small {
-  font-size: 7px;
 }
 
 .exportSheet .sheetFooter {
@@ -1143,14 +1123,12 @@ a:focus-visible {
   }
 
   .sheetWrapper .socialList {
-    grid-template-columns: 1fr;
-    gap: 4px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .sheetWrapper .socialList a {
-    gap: 5px;
-    padding: 5px 6px;
-    border-radius: 5px;
+    gap: 3px;
   }
 
   .sheetWrapper .socialSymbol {
@@ -1158,12 +1136,8 @@ a:focus-visible {
     height: 18px;
   }
 
-  .sheetWrapper .socialText strong {
-    font-size: 9px;
-  }
-
-  .sheetWrapper .socialText small {
-    font-size: 7px;
+  .sheetWrapper .socialUsername {
+    font-size: 8px;
   }
 
   .sheetWrapper [lang="mr"] .sectionHeading h2 {
