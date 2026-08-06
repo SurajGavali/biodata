@@ -102,12 +102,7 @@ function BiodataSheet({
         </div>
 
         <div className="identity">
-          <h1>
-            <span>{localized(biodata.name, locale).split(" ")[0]}</span>
-            <strong>
-              {localized(biodata.name, locale).split(" ").slice(1).join(" ")}
-            </strong>
-          </h1>
+          <h1>{localized(biodata.name, locale)}</h1>
           <p className="headline">{localized(biodata.headline, locale)}</p>
           <span className="titleRule" aria-hidden="true" />
           <dl className="headerFacts">
