@@ -145,25 +145,26 @@ function BiodataSheet({
             </div>
             <div>
               <dt>{locale === "en" ? "Location" : "ठिकाण"}</dt>
-              <dd className="headerLocationValue">
-                <span>{localized(profileFacts.location, locale)}</span>
-                <span className="headerSocialLinks">
-                  {socialLinks.map((social) => (
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open ${social.label} profile`}
-                      key={social.href}
-                    >
-                      {social.type === "instagram" ? (
-                        <InstagramSymbol />
-                      ) : (
-                        <LinkedInSymbol />
-                      )}
-                    </a>
-                  ))}
-                </span>
+              <dd>{localized(profileFacts.location, locale)}</dd>
+            </div>
+            <div>
+              <dt>{locale === "en" ? "Social" : "सोशल"}</dt>
+              <dd className="headerSocialLinks">
+                {socialLinks.map((social) => (
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${social.label} profile`}
+                    key={social.href}
+                  >
+                    {social.type === "instagram" ? (
+                      <InstagramSymbol />
+                    ) : (
+                      <LinkedInSymbol />
+                    )}
+                  </a>
+                ))}
               </dd>
             </div>
           </dl>

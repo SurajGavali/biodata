@@ -431,8 +431,8 @@ a:focus-visible {
 
 .headerFacts {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+  gap: 14px;
   margin-top: 24px;
 }
 
@@ -565,15 +565,8 @@ a:focus-visible {
   font-weight: 600;
 }
 
-.headerLocationValue {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 .headerSocialLinks {
-  display: inline-flex;
+  display: flex;
   gap: 7px;
   align-items: center;
 }
@@ -786,10 +779,6 @@ a:focus-visible {
 
 .exportSheet .detailRow dd {
   font-size: 11px;
-}
-
-.exportSheet .headerLocationValue {
-  gap: 5px;
 }
 
 .exportSheet .headerSocialLinks {
@@ -1102,10 +1091,6 @@ a:focus-visible {
   .sheetWrapper .detailRow dd {
     font-size: 9.5px;
     line-height: 1.18;
-  }
-
-  .sheetWrapper .headerLocationValue {
-    gap: 3px;
   }
 
   .sheetWrapper .headerSocialLinks {
