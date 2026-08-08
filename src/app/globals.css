@@ -1019,7 +1019,7 @@ a:focus-visible {
   .sheetWrapper .mobileContentGrid {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
     gap: 15px;
   }
 
@@ -1027,7 +1027,7 @@ a:focus-visible {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(37% + 7px);
+    left: calc(56% + 7px);
     width: 1px;
     content: "";
     background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.18));
@@ -1142,12 +1142,11 @@ a:focus-visible {
   }
 
   .sheetWrapper .mobileContentGrid {
-    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
     gap: 13px;
   }
 
   .sheetWrapper .mobileContentGrid::after {
-    left: calc(38% + 6px);
+    left: calc(56% + 6px);
   }
 
   .sheetWrapper .sectionHeading h2 {
