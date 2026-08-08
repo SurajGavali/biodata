@@ -174,14 +174,14 @@ function BiodataSheet({
       <div className="contentGrid desktopContentGrid">
         <div className="column">
           <DetailSection section={classicPersonal} locale={locale} />
-          <DetailSection section={classicEducation} locale={locale} />
+          <DetailSection section={biodata.horoscope} locale={locale} />
+          <DetailSection section={biodata.contact} locale={locale} />
         </div>
 
         <div className="column columnRight">
-          <DetailSection section={biodata.horoscope} locale={locale} />
+          <DetailSection section={classicEducation} locale={locale} />
           <DetailSection section={biodata.family} locale={locale} />
           <DetailSection section={biodata.occupation} locale={locale} />
-          <DetailSection section={biodata.contact} locale={locale} />
         </div>
       </div>
 
@@ -189,14 +189,14 @@ function BiodataSheet({
         <div className="mobileContentGrid">
           <div className="mobileColumn mobileRail">
             <DetailSection section={classicPersonal} locale={locale} />
-            <DetailSection section={classicEducation} locale={locale} />
+            <DetailSection section={biodata.horoscope} locale={locale} />
+            <DetailSection section={biodata.contact} locale={locale} />
           </div>
 
           <div className="mobileColumn mobileMain">
-            <DetailSection section={biodata.horoscope} locale={locale} />
+            <DetailSection section={classicEducation} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
             <DetailSection section={biodata.occupation} locale={locale} />
-            <DetailSection section={biodata.contact} locale={locale} />
           </div>
         </div>
       )}

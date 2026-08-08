@@ -309,7 +309,7 @@ a:focus-visible {
   overflow: hidden;
   width: 100%;
   min-height: 1220px;
-  padding: 54px 62px 30px;
+  padding: 54px 62px 60px;
   color: var(--text);
   background:
     linear-gradient(180deg, rgba(248, 242, 237, 0.55), transparent 180px),
@@ -464,7 +464,7 @@ a:focus-visible {
 .contentGrid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
   gap: 60px;
 }
 
@@ -472,7 +472,7 @@ a:focus-visible {
   position: absolute;
   top: 4px;
   bottom: 2px;
-  left: calc(56% + 0px);
+  left: calc(38% + 6px);
   width: 2px;
   content: "";
   background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.25));
@@ -725,12 +725,12 @@ a:focus-visible {
 }
 
 .exportSheet .contentGrid {
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
   gap: 47px;
 }
 
 .exportSheet .contentGrid::after {
-  left: 55%;
+  left: calc(38% + 4px);
 }
 
 .exportSheet .column {
@@ -840,7 +840,7 @@ a:focus-visible {
   }
 
   .contentGrid::after {
-    left: 56%;
+    left: calc(38% - 5px);
   }
 
   .headingMark {
@@ -1019,7 +1019,7 @@ a:focus-visible {
   .sheetWrapper .mobileContentGrid {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
     gap: 15px;
   }
 
@@ -1027,7 +1027,7 @@ a:focus-visible {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(56% + 7px);
+    left: calc(37% + 7px);
     width: 1px;
     content: "";
     background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.18));
@@ -1142,11 +1142,12 @@ a:focus-visible {
   }
 
   .sheetWrapper .mobileContentGrid {
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
     gap: 13px;
   }
 
   .sheetWrapper .mobileContentGrid::after {
-    left: calc(56% + 6px);
+    left: calc(38% + 6px);
   }
 
   .sheetWrapper .sectionHeading h2 {
