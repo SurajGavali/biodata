@@ -781,16 +781,16 @@
 }
 
 .exportCard .tile {
-  height: 204px;
+  height: 150px;
   aspect-ratio: auto;
 }
 
 .exportCard .tileContent {
-  padding: 18px;
+  padding: 14px;
 }
 
 .exportCard .tileContent strong {
-  font-size: 25px;
+  font-size: 21px;
 }
 
 .exportCard .tileContent small,

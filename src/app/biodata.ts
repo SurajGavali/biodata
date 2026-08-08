@@ -19,6 +19,7 @@ export type MarriageBiodata = {
   personal: BiodataSection;
   education: BiodataSection;
   family: BiodataSection;
+  occupation: BiodataSection;
   horoscope: BiodataSection;
   contact: BiodataSection;
 };
@@ -128,8 +129,8 @@ export const biodata: MarriageBiodata = {
         value: { en: "Libra (Tula)", mr: "तूळ" },
       },
       {
-        label: { en: "Rashi name", mr: "नावरस नाव" },
-        value: { en: "Omkar", mr: "ओंकार" },
+        label: { en: "Navras name", mr: "नावरस नाव" },
+        value: { en: "Ritesh", mr: "रितेश" },
       },
       {
         label: { en: "Family deity", mr: "कुलदैवत" },
@@ -139,8 +140,8 @@ export const biodata: MarriageBiodata = {
   },
   family: {
     title: {
-      en: "Family",
-      mr: "कौटुंबिक माहिती",
+      en: "Family and relatives",
+      mr: "कुटुंब व नातेवाईक",
     },
     details: [
       {
@@ -165,17 +166,6 @@ export const biodata: MarriageBiodata = {
         },
       },
       {
-        label: { en: "Brother's occupation", mr: "भावाचा व्यवसाय" },
-        value: { en: "Businessman", mr: "व्यावसायिक" },
-      },
-      {
-        label: { en: "Family business", mr: "कौटुंबिक व्यवसाय" },
-        value: {
-          en: "Two Kolhapuri chappal shops, managed by father and brother",
-          mr: "दोन कोल्हापुरी चप्पल दुकाने — वडील व भाऊ सांभाळतात",
-        },
-      },
-      {
         label: { en: "Maternal uncle", mr: "मामा" },
         value: {
           en: "Late Shankar Maruti Jadhav",
@@ -195,6 +185,26 @@ export const biodata: MarriageBiodata = {
           en: "Kerba Dhondiram Chougule",
           mr: "श्री. केरबा धोंडीराम चौगुले",
         },
+      },
+    ],
+  },
+  occupation: {
+    title: {
+      en: "Family occupations",
+      mr: "कुटुंबीयांचा व्यवसाय",
+    },
+    details: [
+      {
+        label: { en: "Mother", mr: "आई" },
+        value: { en: "Housewife", mr: "गृहिणी" },
+      },
+      {
+        label: { en: "Father", mr: "वडील" },
+        value: { en: "Business", mr: "व्यवसाय" },
+      },
+      {
+        label: { en: "Brother", mr: "भाऊ" },
+        value: { en: "Business", mr: "व्यवसाय" },
       },
     ],
   },
@@ -230,8 +240,8 @@ export const biodata: MarriageBiodata = {
       {
         label: { en: "Relations", mr: "इतर पाहुणे" },
         value: {
-          en: "Gavali, Chougule, Jadhav, Nangare, Chavan, Kamble, Chougule, Bamane, Patil, Lohar, Doiphode",
-          mr: "गवळी, चौगुले, जाधव, नांगरे, चव्हाण, कांबळे, चौगुले, बामणे, पाटील, लोहार, डोईफोडे",
+          en: "Gavali, Chougule, Jadhav, Nangare, Chavan, Kamble, Chougale, Bamane, Patil, Lokare, Doiphode",
+          mr: "गवळी, चौगुले, जाधव, नांगरे, चव्हाण, कांबळे, चौगले, बामणे, पाटील, लोकरे, डोईफोडे",
         },
       },
     ],

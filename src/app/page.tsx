@@ -120,7 +120,7 @@ function BiodataSheet({
           <span className="orbit orbitTwo" aria-hidden="true" />
           <div className="portraitFrame">
             <Image
-              src="/profile-photo.png"
+              src="/profile-photo-2026.png"
               alt={
                 locale === "en"
                   ? "Portrait of Suraj Gavali"
@@ -180,6 +180,7 @@ function BiodataSheet({
         <div className="column columnRight">
           <DetailSection section={biodata.horoscope} locale={locale} />
           <DetailSection section={biodata.family} locale={locale} />
+          <DetailSection section={biodata.occupation} locale={locale} />
           <DetailSection section={biodata.contact} locale={locale} />
         </div>
       </div>
@@ -195,6 +196,7 @@ function BiodataSheet({
           <div className="mobileColumn mobileMain">
             <DetailSection section={classicEducation} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
+            <DetailSection section={biodata.occupation} locale={locale} />
           </div>
         </div>
       )}

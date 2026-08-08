@@ -48,6 +48,7 @@ type TileId =
   | "education"
   | "career"
   | "family"
+  | "occupation"
   | "traditions"
   | "contact"
   | "relations";
@@ -227,15 +228,27 @@ function createTiles(age: number): Tile[] {
     },
     {
       id: "family",
-      title: { en: "Family", mr: "कुटुंब" },
-      eyebrow: { en: "Rooted together", mr: "कुटुंबाची साथ" },
+      title: biodata.family.title,
+      eyebrow: { en: "Family roots", mr: "कुटुंबाची नाती" },
       preview: {
-        en: "Parents, brother & family",
-        mr: "आई-वडील, भाऊ व कुटुंब",
+        en: "Parents, brother & relatives",
+        mr: "आई-वडील, भाऊ व नातेवाईक",
       },
       icon: UsersRound,
       tone: "forest",
       details: biodata.family.details,
+    },
+    {
+      id: "occupation",
+      title: biodata.occupation.title,
+      eyebrow: { en: "Family work", mr: "कुटुंबाचे काम" },
+      preview: {
+        en: "Housewife & business",
+        mr: "गृहिणी व व्यवसाय",
+      },
+      icon: BriefcaseBusiness,
+      tone: "amber",
+      details: biodata.occupation.details,
     },
     {
       id: "traditions",
@@ -312,7 +325,7 @@ function saveDataUrl(dataUrl: string, filename: string) {
 function Portrait() {
   return (
     <Image
-      src="/profile-photo.png"
+      src="/profile-photo-2026.png"
       alt="Suraj Gavali"
       fill
       loading="eager"
