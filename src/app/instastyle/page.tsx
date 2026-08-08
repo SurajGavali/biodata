@@ -322,10 +322,14 @@ function saveDataUrl(dataUrl: string, filename: string) {
   link.click();
 }
 
-function Portrait() {
+function Portrait({
+  src = "/profile-avatar-2026.png",
+}: {
+  src?: string;
+}) {
   return (
     <Image
-      src="/profile-photo-2026.png"
+      src={src}
       alt="Suraj Gavali"
       fill
       loading="eager"
@@ -492,7 +496,7 @@ function ProfileContent({
               {tile.photo ? (
                 <>
                   <div className={styles.tilePhoto}>
-                    <Portrait />
+                    <Portrait src="/profile-photo-2026.png" />
                   </div>
                   <span className={styles.photoShade} aria-hidden="true" />
                 </>

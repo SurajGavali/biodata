@@ -373,6 +373,7 @@ a:focus-visible {
 
 .portraitImage {
   object-fit: cover;
+  object-position: 50% 50%;
 }
 
 .orbit {

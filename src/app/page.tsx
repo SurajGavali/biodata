@@ -120,7 +120,7 @@ function BiodataSheet({
           <span className="orbit orbitTwo" aria-hidden="true" />
           <div className="portraitFrame">
             <Image
-              src="/profile-photo-2026.png"
+              src="/profile-avatar-2026.png"
               alt={
                 locale === "en"
                   ? "Portrait of Suraj Gavali"
