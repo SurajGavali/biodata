@@ -161,8 +161,8 @@ export const biodata: MarriageBiodata = {
       {
         label: { en: "Brother", mr: "भाऊ" },
         value: {
-          en: "Dheeraj Maruti Gavali",
-          mr: "कु. धीरज मारुती गवळी",
+          en: "Dheeraj Maruti Gavali (Unmarried)",
+          mr: "कु. धीरज मारुती गवळी (अविवाहित)",
         },
       },
       {
