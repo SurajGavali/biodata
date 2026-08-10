@@ -105,6 +105,18 @@ function BiodataSheet({
         detail.label.en !== "Work location",
     ),
   };
+  const classicContact: BiodataSection = {
+    ...biodata.contact,
+    details: biodata.contact.details.filter(
+      (detail) => detail.label.en !== "Relations",
+    ),
+  };
+  const classicRelations: BiodataSection = {
+    title: { en: "Relations", mr: "नातेसंबंध" },
+    details: biodata.contact.details.filter(
+      (detail) => detail.label.en === "Relations",
+    ),
+  };
 
   return (
     <article
@@ -128,7 +140,11 @@ function BiodataSheet({
               }
               fill
               loading="eager"
-              sizes={exportMode ? "220px" : "(max-width: 760px) 180px, 230px"}
+              sizes={
+                exportMode
+                  ? "276px"
+                  : "(max-width: 420px) 135px, (max-width: 700px) 149px, (max-width: 900px) 308px, 342px"
+              }
               className="portraitImage"
             />
           </div>
@@ -175,13 +191,14 @@ function BiodataSheet({
         <div className="column">
           <DetailSection section={classicPersonal} locale={locale} />
           <DetailSection section={biodata.horoscope} locale={locale} />
-          <DetailSection section={biodata.contact} locale={locale} />
+          <DetailSection section={classicContact} locale={locale} />
         </div>
 
         <div className="column columnRight">
           <DetailSection section={classicEducation} locale={locale} />
           <DetailSection section={biodata.family} locale={locale} />
           <DetailSection section={biodata.occupation} locale={locale} />
+          <DetailSection section={classicRelations} locale={locale} />
         </div>
       </div>
 
@@ -190,13 +207,14 @@ function BiodataSheet({
           <div className="mobileColumn mobileRail">
             <DetailSection section={classicPersonal} locale={locale} />
             <DetailSection section={biodata.horoscope} locale={locale} />
-            <DetailSection section={biodata.contact} locale={locale} />
+            <DetailSection section={classicContact} locale={locale} />
           </div>
 
           <div className="mobileColumn mobileMain">
             <DetailSection section={classicEducation} locale={locale} />
             <DetailSection section={biodata.family} locale={locale} />
             <DetailSection section={biodata.occupation} locale={locale} />
+            <DetailSection section={classicRelations} locale={locale} />
           </div>
         </div>
       )}

@@ -40,10 +40,11 @@ export const metadata: Metadata = {
       "A polished bilingual English and Marathi marriage biodata with PDF and PNG downloads.",
     images: [
       {
-        alt: "Suraj Gavali bilingual marriage biodata",
-        height: 630,
-        url: "/og.png",
-        width: 1200,
+        alt: "Suraj Gavali bilingual marriage biodata profile",
+        height: 909,
+        type: "image/png",
+        url: "/instastyle-og.png",
+        width: 1731,
       },
     ],
     title: "Suraj Gavali | Marriage Biodata",
@@ -52,7 +53,15 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: "Bilingual marriage biodata in English and Marathi.",
-    images: ["/og.png"],
+    images: [
+      {
+        alt: "Suraj Gavali bilingual marriage biodata profile",
+        height: 909,
+        type: "image/png",
+        url: "/instastyle-og.png",
+        width: 1731,
+      },
+    ],
     title: "Suraj Gavali | Marriage Biodata",
   },
 };
