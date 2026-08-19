@@ -189,6 +189,11 @@ a:focus-visible {
   color: #fff;
 }
 
+.segmentedControl button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
 .segmentedControl button:active {
   transform: scale(0.97);
 }
@@ -204,6 +209,25 @@ a:focus-visible {
   color: #ffd4d4;
   font-size: 14px;
   text-align: right;
+}
+
+.downloadReady {
+  max-width: min(260px, calc(100vw - 24px));
+  padding: 10px 13px;
+  color: var(--ink);
+  border: 1px solid rgba(7, 59, 67, 0.12);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.downloadReady:hover {
+  background: #f8f4f0;
 }
 
 .floatingDownload {
@@ -479,10 +503,6 @@ a:focus-visible {
   background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.25));
 }
 
-.mobileContentGrid {
-  display: none;
-}
-
 .column {
   display: flex;
   flex-direction: column;
@@ -508,7 +528,7 @@ a:focus-visible {
   background: var(--peach);
 }
 
-.columnRight .headingMark {
+.detailMain .headingMark {
   width: 30px;
   margin-left: -31px;
 }
@@ -726,12 +746,16 @@ a:focus-visible {
 }
 
 .exportSheet .contentGrid {
-  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
-  gap: 47px;
+  grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
+  gap: 34px;
 }
 
 .exportSheet .contentGrid::after {
-  left: calc(38% + 4px);
+  top: 0;
+  bottom: 0;
+  left: calc(37% + 4px);
+  width: 2px;
+  background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.18));
 }
 
 .exportSheet .column {
@@ -749,7 +773,11 @@ a:focus-visible {
   margin-left: -42px;
 }
 
-.exportSheet .columnRight .headingMark {
+.exportSheet .detailMain {
+  padding-left: 1px;
+}
+
+.exportSheet .detailMain .headingMark {
   width: 24px;
   margin-left: -25px;
 }
@@ -769,17 +797,20 @@ a:focus-visible {
 }
 
 .exportSheet .detailRow {
-  grid-template-columns: minmax(79px, 0.38fr) minmax(0, 0.62fr);
-  gap: 8px;
-  padding-bottom: 3px;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  padding-bottom: 4px;
+  line-height: 1.15;
 }
 
 .exportSheet .detailRow dt {
   font-size: 10.5px;
+  line-height: 1.15;
 }
 
 .exportSheet .detailRow dd {
   font-size: 11px;
+  line-height: 1.18;
 }
 
 .exportSheet .headerSocialLinks {
@@ -865,7 +896,7 @@ a:focus-visible {
     padding-inline: 8px;
   }
 
-  .biodataSheet {
+  .sheetWrapper .biodataSheet:not(.exportSheet) {
     padding-inline: 24px;
   }
 
@@ -1038,35 +1069,24 @@ a:focus-visible {
     line-height: 1.18;
   }
 
-  .sheetWrapper .desktopContentGrid {
-    display: none;
-  }
-
-  .sheetWrapper .mobileContentGrid {
-    position: relative;
-    display: grid;
+  .sheetWrapper .contentGrid {
     grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
     gap: 15px;
   }
 
-  .sheetWrapper .mobileContentGrid::after {
-    position: absolute;
+  .sheetWrapper .contentGrid::after {
     top: 0;
     bottom: 0;
     left: calc(37% + 7px);
     width: 1px;
-    content: "";
     background: linear-gradient(var(--peach), rgba(244, 189, 126, 0.18));
   }
 
-  .sheetWrapper .mobileColumn {
-    display: flex;
-    flex-direction: column;
+  .sheetWrapper .column {
     gap: 15px;
-    min-width: 0;
   }
 
-  .sheetWrapper .mobileMain {
+  .sheetWrapper .detailMain {
     padding-left: 1px;
   }
 
@@ -1075,14 +1095,13 @@ a:focus-visible {
     margin-bottom: 7px;
   }
 
-  .sheetWrapper .headingMark,
-  .sheetWrapper .columnRight .headingMark {
+  .sheetWrapper .headingMark {
     width: 12px;
     height: 4px;
     margin-left: -14px;
   }
 
-  .sheetWrapper .mobileMain .headingMark {
+  .sheetWrapper .detailMain .headingMark {
     width: 9px;
     margin-left: -9px;
   }
@@ -1169,12 +1188,12 @@ a:focus-visible {
     height: 135px;
   }
 
-  .sheetWrapper .mobileContentGrid {
+  .sheetWrapper .contentGrid {
     grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
     gap: 13px;
   }
 
-  .sheetWrapper .mobileContentGrid::after {
+  .sheetWrapper .contentGrid::after {
     left: calc(38% + 6px);
   }
 

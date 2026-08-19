@@ -91,6 +91,12 @@
   transform: translateY(-1px);
 }
 
+.languageButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
 .classicLink:hover {
   background: var(--surface-soft);
 }
@@ -576,6 +582,25 @@
   font-size: 13px;
   font-weight: 700;
   text-align: right;
+}
+
+.downloadReady {
+  max-width: min(260px, calc(100vw - 28px));
+  padding: 10px 13px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.downloadReady:hover {
+  background: var(--button-hover);
 }
 
 .dialogBackdrop {

@@ -3,7 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import {
+  createExportDownload,
+  scheduleObjectUrlRevocation,
+  triggerBlobDownload,
+  type ExportDownload,
+  type ExportFormat,
+} from "@/lib/export-download";
 import {
   biodata,
   type BiodataSection,
@@ -13,7 +19,8 @@ import {
   uiCopy,
 } from "./biodata";
 
-type ExportStatus = "pdf" | "png" | null;
+type ExportStatus = ExportFormat | null;
+type ReadyDownload = Pick<ExportDownload, "filename"> & { url: string };
 
 const localized = (text: LocalizedText, locale: Locale) => text[locale];
 
@@ -187,37 +194,20 @@ function BiodataSheet({
         </div>
       </header>
 
-      <div className="contentGrid desktopContentGrid">
-        <div className="column">
+      <div className="contentGrid">
+        <div className="column detailRail">
           <DetailSection section={classicPersonal} locale={locale} />
           <DetailSection section={biodata.horoscope} locale={locale} />
           <DetailSection section={classicContact} locale={locale} />
         </div>
 
-        <div className="column columnRight">
+        <div className="column detailMain">
           <DetailSection section={classicEducation} locale={locale} />
           <DetailSection section={biodata.family} locale={locale} />
           <DetailSection section={biodata.occupation} locale={locale} />
           <DetailSection section={classicRelations} locale={locale} />
         </div>
       </div>
-
-      {!exportMode && (
-        <div className="mobileContentGrid">
-          <div className="mobileColumn mobileRail">
-            <DetailSection section={classicPersonal} locale={locale} />
-            <DetailSection section={biodata.horoscope} locale={locale} />
-            <DetailSection section={classicContact} locale={locale} />
-          </div>
-
-          <div className="mobileColumn mobileMain">
-            <DetailSection section={classicEducation} locale={locale} />
-            <DetailSection section={biodata.family} locale={locale} />
-            <DetailSection section={biodata.occupation} locale={locale} />
-            <DetailSection section={classicRelations} locale={locale} />
-          </div>
-        </div>
-      )}
 
       <footer className="sheetFooter">
         <span>{copy.footerNotice}</span>
@@ -226,47 +216,34 @@ function BiodataSheet({
   );
 }
 
-async function waitForExportAssets(node: HTMLElement) {
-  if ("fonts" in document) {
-    await document.fonts.ready;
-  }
-
-  const images = Array.from(node.querySelectorAll("img"));
-  await Promise.all(
-    images.map(
-      (image) =>
-        new Promise<void>((resolve, reject) => {
-          if (image.complete && image.naturalWidth > 0) {
-            resolve();
-            return;
-          }
-
-          image.addEventListener("load", () => resolve(), { once: true });
-          image.addEventListener("error", () => reject(), { once: true });
-        }),
-    ),
-  );
-}
-
-function downloadDataUrl(dataUrl: string, filename: string) {
-  const link = document.createElement("a");
-  link.download = filename;
-  link.href = dataUrl;
-  link.click();
-}
-
 export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
   const [exportStatus, setExportStatus] = useState<ExportStatus>(null);
   const [exportError, setExportError] = useState(false);
   const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
+  const [readyDownload, setReadyDownload] = useState<ReadyDownload | null>(
+    null,
+  );
   const exportRef = useRef<HTMLDivElement>(null);
   const downloadMenuRef = useRef<HTMLDivElement>(null);
+  const downloadUrlRef = useRef<string | null>(null);
+  const exportOperationRef = useRef(0);
   const copy = uiCopy[locale];
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(
+    () => () => {
+      exportOperationRef.current += 1;
+      if (downloadUrlRef.current) {
+        scheduleObjectUrlRevocation(downloadUrlRef.current);
+        downloadUrlRef.current = null;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!downloadMenuOpen) {
@@ -297,60 +274,56 @@ export default function Home() {
     };
   }, [downloadMenuOpen]);
 
-  const createExportImage = async () => {
-    const node = exportRef.current?.querySelector<HTMLElement>(".exportSheet");
-    if (!node) {
-      throw new Error("Export sheet was not found.");
-    }
-
-    await waitForExportAssets(node);
-
-    return toPng(node, {
-      cacheBust: true,
-      backgroundColor: "#ffffff",
-      height: 1123,
-      pixelRatio: 2,
-      quality: 1,
-      width: 794,
-    });
-  };
-
-  const handleDownload = async (format: Exclude<ExportStatus, null>) => {
+  const handleDownload = async (format: ExportFormat) => {
     if (exportStatus) {
       return;
     }
+
+    const operationId = ++exportOperationRef.current;
 
     setExportError(false);
     setExportStatus(format);
     setDownloadMenuOpen(false);
 
     try {
-      const imageData = await createExportImage();
-      const filename = `suraj-gavali-biodata-${locale}`;
+      const node = exportRef.current?.querySelector<HTMLElement>(".exportSheet");
+      if (!node) {
+        throw new Error("Export sheet was not found.");
+      }
 
-      if (format === "png") {
-        downloadDataUrl(imageData, `${filename}.png`);
-      } else {
-        const { jsPDF } = await import("jspdf");
-        const pdf = new jsPDF({
-          compress: true,
-          format: "a4",
-          orientation: "portrait",
-          unit: "mm",
-        });
-        pdf.addImage(imageData, "PNG", 0, 0, 210, 297, undefined, "FAST");
-        pdf.setProperties({
+      const download = await createExportDownload({
+        backgroundColor: "#ffffff",
+        filenameStem: `suraj-gavali-biodata-${locale}`,
+        format,
+        pdfMetadata: {
           author: "Suraj Gavali",
           subject: "Marriage biodata",
           title: `Suraj Gavali Biodata (${locale.toUpperCase()})`,
-        });
-        pdf.save(`${filename}.pdf`);
+        },
+        target: node,
+      });
+      if (operationId !== exportOperationRef.current) {
+        return;
+      }
+
+      const previousUrl = downloadUrlRef.current;
+      const url = triggerBlobDownload(download.blob, download.filename);
+
+      downloadUrlRef.current = url;
+      setReadyDownload({ filename: download.filename, url });
+
+      if (previousUrl) {
+        scheduleObjectUrlRevocation(previousUrl);
       }
     } catch (error) {
       console.error(error);
-      setExportError(true);
+      if (operationId === exportOperationRef.current) {
+        setExportError(true);
+      }
     } finally {
-      setExportStatus(null);
+      if (operationId === exportOperationRef.current) {
+        setExportStatus(null);
+      }
     }
   };
 
@@ -372,6 +345,7 @@ export default function Home() {
                 type="button"
                 aria-pressed={locale === "en"}
                 className={locale === "en" ? "active" : ""}
+                disabled={exportStatus !== null}
                 onClick={() => setLocale("en")}
               >
                 {copy.english}
@@ -380,6 +354,7 @@ export default function Home() {
                 type="button"
                 aria-pressed={locale === "mr"}
                 className={locale === "mr" ? "active" : ""}
+                disabled={exportStatus !== null}
                 onClick={() => setLocale("mr")}
               >
                 {copy.marathi}
@@ -422,6 +397,17 @@ export default function Home() {
               <small>{copy.documentFormat}</small>
             </button>
           </div>
+        )}
+        {readyDownload && (
+          <a
+            className="downloadReady"
+            download={readyDownload.filename}
+            href={readyDownload.url}
+            rel="noopener"
+            target="_blank"
+          >
+            {copy.downloadReady}
+          </a>
         )}
 
         <button

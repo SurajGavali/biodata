@@ -1,6 +1,5 @@
 "use client";
 
-import { toPng } from "html-to-image";
 import {
   BriefcaseBusiness,
   CalendarDays,
@@ -32,6 +31,13 @@ import {
   useState,
 } from "react";
 import {
+  createExportDownload,
+  scheduleObjectUrlRevocation,
+  triggerBlobDownload,
+  type ExportDownload,
+  type ExportFormat,
+} from "@/lib/export-download";
+import {
   biodata,
   type Detail,
   type Locale,
@@ -40,7 +46,8 @@ import {
 } from "../biodata";
 import styles from "./instastyle.module.css";
 
-type ExportStatus = "pdf" | "png" | null;
+type ExportStatus = ExportFormat | null;
+type ReadyDownload = Pick<ExportDownload, "filename"> & { url: string };
 type TileId =
   | "profile"
   | "personal"
@@ -82,6 +89,7 @@ const copy = {
     pdf: "A4 PDF document",
     preparingPng: "Preparing PNG…",
     preparingPdf: "Preparing PDF…",
+    downloadReady: "Download ready - tap to save",
     error: "The download could not be created. Please try again.",
     marriageBiodata: "Marriage Biodata",
     years: "25",
@@ -111,6 +119,7 @@ const copy = {
     pdf: "A4 PDF दस्तऐवज",
     preparingPng: "PNG तयार होत आहे…",
     preparingPdf: "PDF तयार होत आहे…",
+    downloadReady: "डाउनलोड तयार आहे - सेव्ह करण्यासाठी टॅप करा",
     error: "डाउनलोड तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
     marriageBiodata: "विवाह परिचयपत्र",
     years: "२५",
@@ -293,34 +302,6 @@ const highlightIds: TileId[] = [
   "traditions",
   "contact",
 ];
-
-async function waitForAssets(node: HTMLElement) {
-  if ("fonts" in document) {
-    await document.fonts.ready;
-  }
-
-  const images = Array.from(node.querySelectorAll("img"));
-  await Promise.all(
-    images.map(
-      (image) =>
-        new Promise<void>((resolve, reject) => {
-          if (image.complete && image.naturalWidth > 0) {
-            resolve();
-            return;
-          }
-          image.addEventListener("load", () => resolve(), { once: true });
-          image.addEventListener("error", () => reject(), { once: true });
-        }),
-    ),
-  );
-}
-
-function saveDataUrl(dataUrl: string, filename: string) {
-  const link = document.createElement("a");
-  link.download = filename;
-  link.href = dataUrl;
-  link.click();
-}
 
 function Portrait({
   src = "/profile-avatar-2026.png",
@@ -611,8 +592,13 @@ export default function InstaStylePage() {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [exportStatus, setExportStatus] = useState<ExportStatus>(null);
   const [exportError, setExportError] = useState(false);
+  const [readyDownload, setReadyDownload] = useState<ReadyDownload | null>(
+    null,
+  );
   const exportRef = useRef<HTMLDivElement>(null);
   const downloadRef = useRef<HTMLDivElement>(null);
+  const downloadUrlRef = useRef<string | null>(null);
+  const exportOperationRef = useRef(0);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const age = calculateAge(profileFacts.birthDate);
   const tiles = useMemo(() => createTiles(age), [age]);
@@ -622,6 +608,17 @@ export default function InstaStylePage() {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(
+    () => () => {
+      exportOperationRef.current += 1;
+      if (downloadUrlRef.current) {
+        scheduleObjectUrlRevocation(downloadUrlRef.current);
+        downloadUrlRef.current = null;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!activeTileId) {
@@ -679,62 +676,58 @@ export default function InstaStylePage() {
     setActiveTileId(id);
   };
 
-  const createExport = async () => {
-    const node = exportRef.current?.querySelector<HTMLElement>(
-      `.${styles.exportCard}`,
-    );
-    if (!node) {
-      throw new Error("Export profile was not found.");
-    }
-
-    await waitForAssets(node);
-
-    return toPng(node, {
-      backgroundColor: "#fafafa",
-      cacheBust: true,
-      height: 1123,
-      pixelRatio: 2,
-      quality: 1,
-      width: 794,
-    });
-  };
-
-  const handleDownload = async (format: Exclude<ExportStatus, null>) => {
+  const handleDownload = async (format: ExportFormat) => {
     if (exportStatus) {
       return;
     }
+
+    const operationId = ++exportOperationRef.current;
 
     setExportError(false);
     setExportStatus(format);
     setDownloadOpen(false);
 
     try {
-      const imageData = await createExport();
-      const filename = `suraj-gavali-instastyle-${locale}`;
+      const node = exportRef.current?.querySelector<HTMLElement>(
+        `.${styles.exportCard}`,
+      );
+      if (!node) {
+        throw new Error("Export profile was not found.");
+      }
 
-      if (format === "png") {
-        saveDataUrl(imageData, `${filename}.png`);
-      } else {
-        const { jsPDF } = await import("jspdf");
-        const pdf = new jsPDF({
-          compress: true,
-          format: "a4",
-          orientation: "portrait",
-          unit: "mm",
-        });
-        pdf.addImage(imageData, "PNG", 0, 0, 210, 297, undefined, "FAST");
-        pdf.setProperties({
+      const download = await createExportDownload({
+        backgroundColor: "#fafafa",
+        filenameStem: `suraj-gavali-instastyle-${locale}`,
+        format,
+        pdfMetadata: {
           author: "Suraj Gavali",
           subject: "Marriage biodata",
           title: `Suraj Gavali Insta Style Biodata (${locale.toUpperCase()})`,
-        });
-        pdf.save(`${filename}.pdf`);
+        },
+        target: node,
+      });
+      if (operationId !== exportOperationRef.current) {
+        return;
+      }
+
+      const previousUrl = downloadUrlRef.current;
+      const url = triggerBlobDownload(download.blob, download.filename);
+
+      downloadUrlRef.current = url;
+      setReadyDownload({ filename: download.filename, url });
+
+      if (previousUrl) {
+        scheduleObjectUrlRevocation(previousUrl);
       }
     } catch (error) {
       console.error(error);
-      setExportError(true);
+      if (operationId === exportOperationRef.current) {
+        setExportError(true);
+      }
     } finally {
-      setExportStatus(null);
+      if (operationId === exportOperationRef.current) {
+        setExportStatus(null);
+      }
     }
   };
 
@@ -754,6 +747,7 @@ export default function InstaStylePage() {
             className={styles.languageButton}
             type="button"
             aria-label={text.language}
+            disabled={exportStatus !== null}
             onClick={() =>
               setLocale((current) => (current === "en" ? "mr" : "en"))
             }
@@ -811,6 +805,17 @@ export default function InstaStylePage() {
               </span>
             </button>
           </div>
+        )}
+        {readyDownload && (
+          <a
+            className={styles.downloadReady}
+            download={readyDownload.filename}
+            href={readyDownload.url}
+            rel="noopener"
+            target="_blank"
+          >
+            {text.downloadReady}
+          </a>
         )}
         <button
           type="button"

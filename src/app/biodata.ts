@@ -230,14 +230,6 @@ export const biodata: MarriageBiodata = {
         value: { en: "8408012121", mr: "८४०८०१२१२१" },
       },
       {
-        label: { en: "Mother's mobile", mr: "आईचा मोबाईल" },
-        value: { en: "9730927098", mr: "९७३०९२७०९८" },
-      },
-      {
-        label: { en: "Brother's mobile", mr: "भावाचा मोबाईल" },
-        value: { en: "7058525310", mr: "७०५८५२५३१०" },
-      },
-      {
         label: { en: "Relations", mr: "इतर पाहुणे" },
         value: {
           en: "Gavali, Chougule, Jadhav, Nangare, Chavan, Kamble, Chougale, Bamane, Patil, Lokare, Doiphode",
@@ -292,6 +284,7 @@ export const uiCopy = {
     documentFormat: "A4 document",
     generatingPdf: "Preparing PDF…",
     generatingPng: "Preparing PNG…",
+    downloadReady: "Download ready - tap to save",
     downloadError: "The download could not be created. Please try again.",
     footerNotice: "Suraj Gavali · Marriage biodata",
     about: "Profile",
@@ -306,6 +299,7 @@ export const uiCopy = {
     documentFormat: "A4 दस्तऐवज",
     generatingPdf: "PDF तयार होत आहे…",
     generatingPng: "PNG तयार होत आहे…",
+    downloadReady: "डाउनलोड तयार आहे - सेव्ह करण्यासाठी टॅप करा",
     downloadError: "डाउनलोड तयार करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
     footerNotice: "सुरज गवळी · विवाह परिचयपत्र",
     about: "परिचय",
