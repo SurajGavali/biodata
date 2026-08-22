@@ -179,6 +179,7 @@ function BiodataSheet({
               <dd className="headerSocialLinks">
                 {socialLinks.map((social) => (
                   <a
+                    data-export-pdf-link={exportMode ? "true" : undefined}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"

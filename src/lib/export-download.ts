@@ -25,12 +25,23 @@ export type ExportDownload = {
   filename: string;
 };
 
+type PdfLinkRegion = {
+  height: number;
+  url: string;
+  width: number;
+  x: number;
+  y: number;
+};
+
 const EXPORT_WIDTH = 794;
 const EXPORT_HEIGHT = 1123;
 const EXPORT_PIXEL_RATIO = 2;
 const ASSET_TIMEOUT_MS = 10_000;
 const RENDER_TIMEOUT_MS = 30_000;
 const OBJECT_URL_REVOKE_DELAY_MS = 60_000;
+const PDF_LINK_SELECTOR = 'a[data-export-pdf-link="true"][href]';
+const PDF_LINK_HORIZONTAL_SLOP_PX = 2;
+const PDF_LINK_VERTICAL_SLOP_PX = 4;
 // Paint marked images directly onto the final canvas so Safari cannot omit
 // them while rasterizing the intermediate SVG foreignObject.
 const CANVAS_OVERLAY_SELECTOR =
@@ -279,6 +290,67 @@ function compositeExportCanvasOverlays(
   }
 }
 
+function collectPdfLinkRegions(target: HTMLElement) {
+  const targetRect = target.getBoundingClientRect();
+
+  if (targetRect.width <= 0 || targetRect.height <= 0) {
+    throw new Error("The PDF link area is not ready.");
+  }
+
+  return Array.from(
+    target.querySelectorAll<HTMLAnchorElement>(PDF_LINK_SELECTOR),
+  ).flatMap<PdfLinkRegion>((anchor) => {
+    const url = new URL(anchor.href, document.baseURI);
+
+    if (url.protocol !== "https:") {
+      throw new Error("PDF links must use HTTPS.");
+    }
+
+    const regions = Array.from(anchor.getClientRects()).flatMap<PdfLinkRegion>(
+      (rect) => {
+        const left = Math.max(
+          targetRect.left,
+          rect.left - PDF_LINK_HORIZONTAL_SLOP_PX,
+        );
+        const right = Math.min(
+          targetRect.right,
+          rect.right + PDF_LINK_HORIZONTAL_SLOP_PX,
+        );
+        const top = Math.max(
+          targetRect.top,
+          rect.top - PDF_LINK_VERTICAL_SLOP_PX,
+        );
+        const bottom = Math.min(
+          targetRect.bottom,
+          rect.bottom + PDF_LINK_VERTICAL_SLOP_PX,
+        );
+        const width = right - left;
+        const height = bottom - top;
+
+        if (width <= 0 || height <= 0) {
+          return [];
+        }
+
+        return [
+          {
+            height: height / targetRect.height,
+            url: url.href,
+            width: width / targetRect.width,
+            x: (left - targetRect.left) / targetRect.width,
+            y: (top - targetRect.top) / targetRect.height,
+          },
+        ];
+      },
+    );
+
+    if (regions.length === 0) {
+      throw new Error("A PDF link is not visible in the export.");
+    }
+
+    return regions;
+  });
+}
+
 export async function createExportDownload({
   backgroundColor,
   filenameStem,
@@ -299,6 +371,7 @@ export async function createExportDownload({
     };
   }
 
+  const pdfLinkRegions = collectPdfLinkRegions(target);
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({
     compress: true,
@@ -308,7 +381,29 @@ export async function createExportDownload({
   });
 
   const pngBytes = new Uint8Array(await pngBlob.arrayBuffer());
-  pdf.addImage(pngBytes, "PNG", 0, 0, 210, 297, undefined, "FAST");
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  pdf.addImage(
+    pngBytes,
+    "PNG",
+    0,
+    0,
+    pageWidth,
+    pageHeight,
+    undefined,
+    "FAST",
+  );
+
+  for (const region of pdfLinkRegions) {
+    pdf.link(
+      region.x * pageWidth,
+      region.y * pageHeight,
+      region.width * pageWidth,
+      region.height * pageHeight,
+      { url: region.url },
+    );
+  }
 
   if (pdfMetadata) {
     pdf.setProperties(pdfMetadata);
