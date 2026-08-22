@@ -31,6 +31,10 @@ const EXPORT_PIXEL_RATIO = 2;
 const ASSET_TIMEOUT_MS = 10_000;
 const RENDER_TIMEOUT_MS = 30_000;
 const OBJECT_URL_REVOKE_DELAY_MS = 60_000;
+// Paint marked images directly onto the final canvas so Safari cannot omit
+// them while rasterizing the intermediate SVG foreignObject.
+const CANVAS_OVERLAY_SELECTOR =
+  'img[data-export-canvas-overlay="circle-cover"]';
 
 function imageSource(image: HTMLImageElement) {
   return image.currentSrc || image.src || "unknown source";
@@ -138,6 +142,11 @@ async function renderExportCanvas(
       toCanvas(target, {
         backgroundColor,
         fetchRequestInit: { signal: controller.signal },
+        filter: (node) =>
+          !(
+            node instanceof HTMLImageElement &&
+            node.matches(CANVAS_OVERLAY_SELECTOR)
+          ),
         height: EXPORT_HEIGHT,
         includeQueryParams: true,
         pixelRatio: EXPORT_PIXEL_RATIO,
@@ -161,6 +170,115 @@ async function renderExportCanvas(
   }
 }
 
+function drawImageCover(
+  context: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+) {
+  const sourceAspectRatio = image.naturalWidth / image.naturalHeight;
+  const targetAspectRatio = width / height;
+  let sourceX = 0;
+  let sourceY = 0;
+  let sourceWidth = image.naturalWidth;
+  let sourceHeight = image.naturalHeight;
+
+  if (sourceAspectRatio > targetAspectRatio) {
+    sourceWidth = image.naturalHeight * targetAspectRatio;
+    sourceX = (image.naturalWidth - sourceWidth) / 2;
+  } else if (sourceAspectRatio < targetAspectRatio) {
+    sourceHeight = image.naturalWidth / targetAspectRatio;
+    sourceY = (image.naturalHeight - sourceHeight) / 2;
+  }
+
+  context.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    x,
+    y,
+    width,
+    height,
+  );
+}
+
+function compositeExportCanvasOverlays(
+  target: HTMLElement,
+  canvas: HTMLCanvasElement,
+) {
+  const images = Array.from(
+    target.querySelectorAll<HTMLImageElement>(CANVAS_OVERLAY_SELECTOR),
+  );
+
+  if (images.length === 0) {
+    return;
+  }
+
+  const context = canvas.getContext("2d");
+  const targetRect = target.getBoundingClientRect();
+
+  if (!context || targetRect.width <= 0 || targetRect.height <= 0) {
+    throw new Error("The browser could not finish the export portrait.");
+  }
+
+  const scaleX = canvas.width / targetRect.width;
+  const scaleY = canvas.height / targetRect.height;
+
+  for (const image of images) {
+    const imageRect = image.getBoundingClientRect();
+    const frame = image.parentElement;
+
+    if (
+      !frame ||
+      image.naturalWidth <= 0 ||
+      image.naturalHeight <= 0 ||
+      imageRect.width <= 0 ||
+      imageRect.height <= 0
+    ) {
+      throw new Error("The export portrait is not ready.");
+    }
+
+    const frameRect = frame.getBoundingClientRect();
+    const frameStyle = window.getComputedStyle(frame);
+    const borderLeft = parseFloat(frameStyle.borderLeftWidth) || 0;
+    const borderRight = parseFloat(frameStyle.borderRightWidth) || 0;
+    const borderTop = parseFloat(frameStyle.borderTopWidth) || 0;
+    const borderBottom = parseFloat(frameStyle.borderBottomWidth) || 0;
+    const width = (frameRect.width - borderLeft - borderRight) * scaleX;
+    const height = (frameRect.height - borderTop - borderBottom) * scaleY;
+    const x = (frameRect.left - targetRect.left + borderLeft) * scaleX;
+    const y = (frameRect.top - targetRect.top + borderTop) * scaleY;
+
+    if (width <= 0 || height <= 0) {
+      throw new Error("The export portrait frame is not ready.");
+    }
+
+    context.save();
+    try {
+      context.beginPath();
+      context.ellipse(
+        x + width / 2,
+        y + height / 2,
+        width / 2,
+        height / 2,
+        0,
+        0,
+        Math.PI * 2,
+      );
+      context.clip();
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+      drawImageCover(context, image, x, y, width, height);
+    } finally {
+      context.restore();
+    }
+  }
+}
+
 export async function createExportDownload({
   backgroundColor,
   filenameStem,
@@ -171,6 +289,7 @@ export async function createExportDownload({
   await waitForExportAssets(target);
 
   const canvas = await renderExportCanvas(target, backgroundColor);
+  compositeExportCanvasOverlays(target, canvas);
   const pngBlob = await canvasToPngBlob(canvas);
 
   if (format === "png") {

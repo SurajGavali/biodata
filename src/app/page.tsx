@@ -148,6 +148,9 @@ function BiodataSheet({
               fill
               loading="eager"
               unoptimized={exportMode}
+              data-export-canvas-overlay={
+                exportMode ? "circle-cover" : undefined
+              }
               sizes={
                 exportMode
                   ? "276px"
