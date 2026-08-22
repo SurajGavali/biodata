@@ -147,6 +147,7 @@ function BiodataSheet({
               }
               fill
               loading="eager"
+              unoptimized={exportMode}
               sizes={
                 exportMode
                   ? "276px"

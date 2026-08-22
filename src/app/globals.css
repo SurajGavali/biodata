@@ -710,16 +710,19 @@ a:focus-visible {
 .exportSheet .portraitFrame {
   width: 276px;
   height: 276px;
+  background: #fff;
   border-width: 9px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .exportSheet .identity h1 {
-  font-size: 54px;
+  font-size: 58px;
 }
 
 .exportSheet .headline {
   margin-top: 16px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .exportSheet .titleRule {
@@ -737,12 +740,12 @@ a:focus-visible {
 }
 
 .exportSheet .headerFacts dt {
-  font-size: 8px;
+  font-size: 9.5px;
 }
 
 .exportSheet .headerFacts dd {
   margin-top: 2px;
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 .exportSheet .contentGrid {
@@ -783,7 +786,7 @@ a:focus-visible {
 }
 
 .exportSheet .sectionHeading h2 {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .exportSheet .aboutSection p,
@@ -804,12 +807,12 @@ a:focus-visible {
 }
 
 .exportSheet .detailRow dt {
-  font-size: 10.5px;
+  font-size: 12px;
   line-height: 1.15;
 }
 
 .exportSheet .detailRow dd {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.18;
 }
 
@@ -827,20 +830,23 @@ a:focus-visible {
   bottom: 10px;
   left: 42px;
   padding-top: 6px;
-  font-size: 8px;
+  font-size: 9px;
 }
 
 .exportSheet[lang="mr"] .identity h1 {
-  font-size: 43px;
+  font-size: 48px;
 }
 
 .exportSheet[lang="mr"] .sectionHeading h2 {
-  font-size: 14px;
+  font-size: 16px;
 }
 
-.exportSheet[lang="mr"] .detailRow dt,
+.exportSheet[lang="mr"] .detailRow dt {
+  font-size: 11.5px;
+}
+
 .exportSheet[lang="mr"] .detailRow dd {
-  font-size: 10px;
+  font-size: 12.5px;
 }
 
 @media (max-width: 900px) {
